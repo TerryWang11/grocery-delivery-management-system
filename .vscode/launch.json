@@ -12,5 +12,16 @@
             "console": "integratedTerminal",
             "justMyCode": true
         }
+        // {
+        //     "name": "使用本机 Chrome 调试",
+        //     "type": "chrome",
+        //     "request": "launch",
+        //      "file": "${file}",
+        //     "runtimeExecutable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", // 改成您的 Chrome 安装路径
+        //     "sourceMaps": true,
+        //     "webRoot": "${workspaceRoot}",
+        //     "userDataDir":"${tmpdir}",
+        //     "port":9222
+        // } 
     ]
 }
