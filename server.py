@@ -34,7 +34,8 @@ app = Flask(__name__, template_folder=tmpl_dir)
 #
 #     DATABASEURI = "postgresql://biliris:foobar@104.196.152.219/proj1part2"
 #
-DATABASEURI = "postgresql://user:password@104.196.152.219/proj1part2"
+# DATABASEURI = "postgresql://user:password@104.196.152.219/proj1part2"
+DATABASEURI = "postgresql://yw3536:22723536@35.211.155.104/proj1part2"
 
 
 #
@@ -65,7 +66,7 @@ def before_request():
   try:
     g.conn = engine.connect()
   except:
-    print "uh oh, problem connecting to database"
+    print ("uh oh, problem connecting to database")
     import traceback; traceback.print_exc()
     g.conn = None
 
@@ -107,7 +108,7 @@ def index():
   """
 
   # DEBUG: this is debugging code to see what request looks like
-  print request.args
+  print (request.args)
 
 
   #
@@ -177,8 +178,9 @@ def add():
 
 @app.route('/login')
 def login():
-    abort(401)
-    this_is_never_executed()
+  print("401")
+    # abort(401)
+    # this_is_never_executed()
 
 
 if __name__ == "__main__":
@@ -203,7 +205,7 @@ if __name__ == "__main__":
     """
 
     HOST, PORT = host, port
-    print "running on %s:%d" % (HOST, PORT)
+    print ("running on %s:%d" % (HOST, PORT))
     app.run(host=HOST, port=PORT, debug=debug, threaded=threaded)
 
 
