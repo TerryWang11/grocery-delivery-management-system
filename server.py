@@ -153,7 +153,7 @@ def index():
   # render_template looks in the templates/ folder for files.
   # for example, the below file reads template/index.html
   #
-  return render_template("index.html", **context)
+  return render_template("login.html", **context)
 
 #
 # This is an example of a different path.  You can see it at:
@@ -176,9 +176,9 @@ def add():
   return redirect('/')
 
 
-@app.route('/login')
+@app.route('/login', methods = ['GET','POST'])
 def login():
-  print("401")
+  return render_template("login.html")
     # abort(401)
     # this_is_never_executed()
 
