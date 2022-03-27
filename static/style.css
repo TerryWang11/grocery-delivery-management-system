@@ -73,7 +73,7 @@ body {
 }
 
 #header .top_banner{
-	background:url(../images/header.jpg) no-repeat left top;
+	background:url(../static/images/header_b.jpg) no-repeat left top;
 	height:60px;
 	padding:65px 95px 0 65px;
 	border:#6E6065 solid 1px;
