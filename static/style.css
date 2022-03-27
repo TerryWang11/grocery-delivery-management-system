@@ -1,0 +1,247 @@
+/* General Reset */
+
+
+input, textarea, select {
+	font:12px Arial, Helvetica, sans-serif;
+	vertical-align:middle;
+	padding:0;
+	margin:0;
+}
+
+textarea {
+	overflow:auto;
+	resize:none;
+}
+
+body {
+	margin:0px;
+	padding:0px;
+	font-size:13px;
+	line-height:21px;
+	color:#2A2B27;
+	background-color:#D8C6B2;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+
+
+
+	a {color: #516322;text-decoration: underline;}
+	a:hover {color: #516322;text-decoration: none;}
+
+
+
+	sup, sub {vertical-align: baseline;position: relative;top: -0.4em;}
+	sub { top: 0.4em; }
+	
+
+	ul, ol {padding:0;margin:0;}
+	ul li {list-style-type:disc;}
+	ol li {list-style-type:decimal;}
+	ul li,
+	ol li {font-size: 12px; line-height: 16px;margin: 0 0 10px 15px;}
+
+	table,th,td {border:1px solid #BBBBBB;}
+	th {padding:3px; font-weight:bold;color:#5c5a45;}
+	tr {margin:0 0 5px 0;padding:3px;}
+	td {padding:5px;margin:0 1px;}
+	
+
+	hr {border-bottom: 1px solid #BDBDC5;margin:5px 0;padding:0;height:2px;width:100%; margin-bottom:10px;}
+
+.clear {
+	clear:both;
+}
+
+.left {
+	float:left;
+}
+
+.right {
+	float:right;
+}
+
+#wrapper {
+	width:1500px;
+	margin:0 auto;
+	padding:20px 0 10px 0;
+}
+
+/*----start header----*/
+#header {
+	padding:0px 0px 5px;
+}
+
+#header .top_banner{
+	background:url(../images/header.jpg) no-repeat left top;
+	height:60px;
+	padding:65px 95px 0 65px;
+	border:#6E6065 solid 1px;
+}
+
+#header h1{
+	font-size:34px;
+	font-family:'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica, Sans-Serif;
+	color:#2F1B09;
+	margin:0px;
+	font-weight:normal;
+	padding:0px 0px 10px;
+}
+
+#header h1 a {
+	color:#2F1B09;
+	text-decoration: none;
+}
+
+#header h1 a:hover {
+	text-decoration: none;
+}
+
+#header p{
+	font-size:18px;
+	font-family:'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica, Sans-Serif;
+	margin-left:2px;
+	color:#2F1B09;
+}
+
+.navigation{
+	margin:0px 0px 30px;
+	padding:11px 5px;
+	border:#BBBFB4 solid 1px;
+	background: #ECF0EC;
+}
+
+.navigation ul{
+	margin:0px;
+	padding:0px;
+}
+
+.navigation ul li{
+	margin:0px;
+	padding:0px 32px;
+	display:inline;
+	font-size:15px;
+	list-style-type:none;
+	border-right:#91969a dotted 2px;
+}
+
+.navigation ul li a{
+	color:#03314b;
+	text-decoration:none;
+}
+
+.navigation ul li a:hover{
+	text-decoration:underline;
+}
+
+.navigation ul li:last-child {
+	border-right:none;
+}
+
+#page_content{
+	background:#FFFFFF;
+	padding:10px;
+	border:#B1B1B1 solid 1px;
+}
+
+#page_content .right_section{
+	width:620px;
+	float: left;
+	padding:0px 20px;
+}
+
+#page_content .right_section .top_content{
+	padding:15px 0 0px 0;
+}
+
+#page_content .right_section .top_content .column_one{
+	width:395px;
+	float:left;
+	margin-bottom:20px;
+}
+
+#page_content .right_section .top_content .column_two{
+	width:395px;
+	float:right;
+	margin-bottom:20px;
+}
+
+a.btn{
+	color:#454546;
+	background:#FAEFE3;
+	font-size:12px;
+	text-decoration:none;
+	padding:7px 15px 7px 15px;
+	font-weight:bold;
+	display:inline-block;
+	border:#A4AD8D solid 1px;
+}
+
+a.btn:hover{
+	text-decoration:underline;
+}
+
+.common_content{
+	padding:0 0 20px 0;
+}
+
+.border_left{
+	border-left:#cacfbb dotted 1px;
+	padding-left:20px;
+}
+
+.border_none{
+	border:none!important;
+	margin:0px!important;
+}
+
+.left_side_bar{
+	width:120px;
+	float:left;
+}
+
+.left_side_bar .col_1{
+	padding:15px 5px 15px 10px;
+	margin-bottom:20px;
+	border:#DCCFBE solid 2px;
+}
+
+.left_side_bar .col_1 .box{
+	padding:5px 11px 5px;
+}
+
+
+
+
+table.base_qry_render {
+	font-family: "Courier New", Courier, monospace;
+	border: 2px solid #000000;
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+  }
+  table.base_qry_render td, table.base_qry_render th {
+	border: 1px solid #000000;
+	padding: 0px 6px;
+  }
+  table.base_qry_render tbody td {
+	font-size: 10px;
+  }
+  table.base_qry_render tr:nth-child(even) {
+	background: #D0E4F5;
+  }
+  table.base_qry_render thead {
+	background: #CFCFCF;
+	background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+	background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+	background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+  }
+  table.base_qry_render thead th {
+	font-size: 13px;
+	font-weight: bold;
+	color: #000000;
+	text-align: center;
+  }
+  table.base_qry_render tfoot td {
+	font-size: 14px;
+  }

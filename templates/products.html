@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Grocery Delivery Management System</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div id="header">
+
+            <div class="top_banner">
+                <h1>Grocery Delivery Management System</h1>
+            </div>
+
+        </div>
+
+        <div id="page_content">
+
+            <div class="left_side_bar">
+
+                <div class="col_1">
+                    <div class="box">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/customer">Customer</a></li>
+                            <li><a href="/deliverymen">Delivery Men</a></li>
+                            <li><a href="/orders">Orders</a></li>
+                            <li><a href="/products">Products</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="right_section">
+                <div class="common_content">
+                    <h2>Products</h2>
+                    <form accept-charset="UTF-8" action="/view_products" autocomplete="off" method="POST"
+                        target="_blank">
+                        <fieldset>
+                            <legend>View Inventory Info:</legend> 
+                                <input type="submit" value="View" onclick="loading();">
+                        </fieldset>
+                    </form>
+                    <br />
+                    <form accept-charset="UTF-8" action="/update_products" autocomplete="off" method="POST"
+                        target="_blank">
+                        <fieldset>
+                            <legend>Update Products:</legend> 
+                            <label for="product_id">ID(*) : </label><input name="product_id" type="text"value="" /> <br />
+                            <label for="product_name">Name : </label><input name="product_name" type="text"value="" /> <br />
+                            <label for="product_type">Type : </label><input name="product_type" type="text"value="" /> <br />
+                            <label for="unit_price">Unit Price : </label> <input name="unit_price" type="text" value="" /> <br />
+                            <label for="quantity_in_stock">Quantity In Stock: </label> <input name="quantity_in_stock" type="text" value="" /> <br />
+                            <input type="submit" value="Update" onclick="loading();">
+                        </fieldset>
+                    </form>
+                    <br />
+                    <form accept-charset="UTF-8" action="/delete_products" autocomplete="off" method="POST"
+                        target="_blank">
+                        <fieldset>
+                            <legend>Delete Products:</legend> 
+                            <label for="product_id">ID : </label><input name="product_id" type="text"value="" /> <br />
+                            <label for="product_name">Name : </label><input name="product_name" type="text"value="" /> <br />
+                            <label for="product_type">Type : </label><input name="product_type" type="text"value="" /> <br />
+                            <label for="unit_price">Unit Price : </label> <input name="unit_price" type="text" value="" /> <br />
+                            <label for="quantity_in_stock">Quantity In Stock: </label> <input name="quantity_in_stock" type="text" value="" /> <br />
+                            <input type="submit" value="Delete" onclick="loading();">
+                        </fieldset>
+                    </form>
+                    <br />
+                </div>
+            </div>
+
+            <div class="clear"></div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -114,11 +114,11 @@ def index():
   #
   # example of a database query
   #
-  cursor = g.conn.execute("SELECT name FROM test")
-  names = []
-  for result in cursor:
-    names.append(result['name'])  # can also be accessed using result[0]
-  cursor.close()
+  # cursor = g.conn.execute("SELECT name FROM test")
+  # names = []
+  # for result in cursor:
+  #   names.append(result['name'])  # can also be accessed using result[0]
+  # cursor.close()
 
   #
   # Flask uses Jinja templates, which is an extension to HTML where you can
@@ -146,14 +146,15 @@ def index():
   #     <div>{{n}}</div>
   #     {% endfor %}
   #
-  context = dict(data = names)
+  # context = dict(data = names)
 
 
   #
   # render_template looks in the templates/ folder for files.
   # for example, the below file reads template/index.html
   #
-  return render_template("login.html", **context)
+  # return render_template("index.html", **context)
+  return render_template("home.html")
 
 #
 # This is an example of a different path.  You can see it at:
@@ -163,9 +164,47 @@ def index():
 # Notice that the function name is another() rather than index()
 # The functions for each app.route need to have different names
 #
-@app.route('/another')
-def another():
-  return render_template("another.html")
+# @app.route('/another')
+# def another():
+#   return render_template("another.html")
+
+@app.route("/customers/", methods=["POST", "GET"])
+def customers_render():
+  if "GET" == request.method:
+    return render_template("customers.html")
+  else:
+    # query = application.doctors.fetch(request.form)
+    # cursor = g.conn.execute(query)
+    # result = []
+    # for c in cursor:
+    #   result.append(c)
+    result = "successful!"
+    return render_template("customers.html", **dict(data = result))
+
+@app.route("/deliverymen/", methods=["POST", "GET"])
+def deliverymen_render():
+  if "GET" == request.method:
+    return render_template("deliverymen.html")
+  else:
+    result = "successful!"
+    return render_template("deliverymen.html", **dict(data = result))
+
+@app.route("/orders/", methods=["POST", "GET"])
+def orders_render():
+  if "GET" == request.method:
+    return render_template("orders.html")
+  else:
+    result = "successful!"
+    return render_template("orders.html", **dict(data = result))
+
+
+@app.route("/products/", methods=["POST", "GET"])
+def products_render():
+  if "GET" == request.method:
+    return render_template("products.html")
+  else:
+    result = "successful!"
+    return render_template("products.html", **dict(data = result))
 
 
 # Example of adding new data to the database

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Grocery Delivery Management System</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div id="header">
+
+            <div class="top_banner">
+                <h1>Grocery Delivery Management System</h1>
+            </div>
+
+        </div>
+
+        <div id="page_content">
+
+            <div class="left_side_bar">
+
+                <div class="col_1">
+                    <div class="box">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/customer">Customer</a></li>
+                            <li><a href="/deliverymen">Delivery Men</a></li>
+                            <li><a href="/orders">Orders</a></li>
+                            <li><a href="/products">Products</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="right_section">
+                <div class="common_content">
+                    <h2>Delivery Men</h2>
+                    <form accept-charset="UTF-8" action="/view_deliverymen" autocomplete="off" method="POST"
+                        target="_blank">
+                        <fieldset>
+                            <legend>View All Delivery Men Info:</legend> 
+                                <input type="submit" value="View" onclick="loading();">
+                        </fieldset>
+                    </form>
+                    <br />
+                    <form accept-charset="UTF-8" action="/search_deliverymen" autocomplete="off" method="POST"
+                        target="_blank">
+                        <fieldset>
+                            <legend>Search Delivery Man:</legend> 
+                                <label for="delivery_men_id">Delivery Man ID : </label><input name="delivery_men_id" type="text"value="" /> <br />
+                                <label for="d_first_name">First Name : </label><input name="d_first_name" type="text"value="" /> <br />
+                                <label for="d_last_name">Last Name : </label><input name="d_last_name" type="text"value="" /> <br />
+                                <label for="phone">Phone : </label> <input name="phone"type="text" value="" /> <br />
+                                <label for="rating">Rating : </label> <input name="rating"type="text" value="" /> <br />
+                                <input type="submit" value="Search" onclick="loading();">
+                        </fieldset>
+                    </form>
+                    <table class="base_qry_render">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Phone</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                                {% for row in data %}
+                                <tr>
+                                    {% for element in row %}
+                                    <td>{{element}}</td>
+                                    {% endfor %}    
+                                </tr>
+                                {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                    <br />
+                    <form accept-charset="UTF-8" action="/update_deliverymen" autocomplete="off" method="POST"
+                        target="_blank">
+                        <fieldset>
+                            <legend>Update Delivery Man:</legend> 
+                            <label for="delivery_man_id">Delivery Man ID(*) : </label><input name="delivery_men_id" type="text"value="" /> <br />
+                            <label for="d_first_name">First Name : </label><input name="d_first_name" type="text"value="" /> <br />
+                            <label for="d_last_name">Last Name : </label><input name="d_last_name" type="text"value="" /> <br />
+                            <label for="phone">Phone : </label> <input name="phone"type="text" value="" /> <br />
+                            <label for="rating">Rating : </label> <input name="rating"type="text" value="" /> <br />
+                            <input type="submit" value="Search" onclick="loading();">
+                        </fieldset>
+                    </form>
+                    <br />
+                    <form accept-charset="UTF-8" action="/delete_deliverymen" autocomplete="off" method="POST"
+                        target="_blank">
+                        <fieldset>
+                            <legend>Delete Delivery Man:</legend> 
+                            <label for="delivery_man_id">Delivery Man ID(*) : </label><input name="delivery_men_id" type="text"value="" /> <br />
+                            <label for="d_first_name">First Name : </label><input name="d_first_name" type="text"value="" /> <br />
+                            <label for="d_last_name">Last Name : </label><input name="d_last_name" type="text"value="" /> <br />
+                            <label for="phone">Phone : </label> <input name="phone"type="text" value="" /> <br />
+                            <label for="rating">Rating : </label> <input name="rating"type="text" value="" /> <br />
+                            <input type="submit" value="Search" onclick="loading();">
+                        </fieldset>
+                    </form>
+                    <br />
+                </div>
+            </div>
+
+            <div class="clear"></div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
