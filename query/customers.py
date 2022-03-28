@@ -198,11 +198,5 @@ def add(args):
         if args['points'] != '': query2 += args['points'] + ','
         else: query2 += 'DEFAULT,'
         query2 += '\''+args['level'] + '\'' + ')'
-    
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    print(query1)
-    print("xxxxxxxxxxxxxxxxxxx")
-    print(query2)
-    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
     query = [query1,query2]
     return query

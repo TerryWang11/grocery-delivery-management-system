@@ -193,7 +193,8 @@ def add_customers():
     result = 'Create successfully!'
   return render_template("customers.html", data5 = result)
 
-###############################################################
+# delivery men management
+# ...
 
 
 
