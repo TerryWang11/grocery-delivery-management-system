@@ -143,7 +143,7 @@
                                 <label for="state">State : </label><input name="state" type="text" value="" /> <br />
                                 <label for="zip_code">Zip Code : </label><input name="zip_code" type="text" value="" /> <br />
                                 <label for="account_balance">Account Balance : </label><input name="account_balance" type="text" value="" /> <br />
-                                <label for="member_customers">Member Customers : </label><input type="checkbox" name="member_customers" /> <body>(If true, you can use the following filters) </body> <br />
+                                <label for="member_customers">Member Customers : </label><input type="checkbox" name="member_customers" /><br />
                                 <label for="start_date">Start Date :</label><input name="start_date" type="date"/> <br />
                                 <label for="end_date">End Date :</label><input name="end_date" type="date"/> <br />
                                 <label for="points">Points : </label><input name="points" type="text" value="" /> <br />
@@ -177,6 +177,32 @@
                     </form>
                         <tbody>
                             <td>{{data4}}</td>
+                        </tbody>
+                    <br />
+                    <form accept-charset="UTF-8" action="/add_customers" autocomplete="off" method="POST"
+                        target="_blank">
+                        <fieldset>
+                            <legend>Add Customer:</legend> 
+                                <label for="customer_id">Customer ID(*) : </label><input name="customer_id" type="text"value="" /> <br />
+                                <label for="c_first_name">First Name : </label><input name="c_first_name" type="text"value="" /> <br />
+                                <label for="c_last_name">Last Name : </label><input name="c_last_name" type="text"value="" /> <br />
+                                <label for="phone">Phone(*) : </label> <input name="phone"type="text" value="" /> <br />
+                                <label for="birth_date">Birth Date :</label><input name="birth_date" type="date"/> <br />
+                                <label for="address">Address : </label><input name="address" type="text" value="" /> <br />
+                                <label for="city">City : </label><input name="city" type="text" value="" /> <br />
+                                <label for="state">State : </label><input name="state" type="text" value="" /> <br />
+                                <label for="zip_code">Zip Code : </label><input name="zip_code" type="text" value="" /> <br />
+                                <label for="account_balance">Account Balance(*) : </label><input name="account_balance" type="text" value="" /> <br />
+                                <label for="member_customers">Member Customers : </label><input type="checkbox" name="member_customers" /> <br />
+                                <label for="start_date">Start Date :</label><input name="start_date" type="date"/> <br />
+                                <label for="end_date">End Date :</label><input name="end_date" type="date"/> <br />
+                                <label for="points">Points : </label><input name="points" type="text" value="" /> <br />
+                                <label for="level">Level(*) : </label><select name="level"><option value="Copper">Copper</option><option value="Silver">Silver</option><option value="Gold">Gold</option></select><br />
+                                <input type="submit" value="Create" onclick="loading();">
+                        </fieldset>
+                    </form>
+                        <tbody>
+                            <td>{{data5}}</td>
                         </tbody>
                     <br />
                 </div>
