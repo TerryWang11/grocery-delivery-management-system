@@ -154,13 +154,10 @@ def search_customers():
   result = []
   for c in cursor:
     result.append(c)
-  # print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-  # print(result)
   if(result == []): 
     result = 'There are no matching results.'
     return render_template("customers.html", **dict(data2_1 = result))
   else: 
-    # print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
     return render_template("customers.html", **dict(data2_2 = result))
 
 @app.route("/update_customers/",methods=['POST'])
@@ -177,7 +174,11 @@ def update_customers():
 
 @app.route("/delete_customers/",methods=['POST'])
 def delete_customers():
-  result = "Delete successfully!"
+  q = query.customers.delete(request.form)
+  g.conn.execute(q)
+  if q == '':
+    result = 'Delete failed, please enter customer_id.'
+  else: result = "Delete successfully!"
   return render_template("customers.html", data4 = result)
 
 

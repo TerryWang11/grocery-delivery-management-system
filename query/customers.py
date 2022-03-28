@@ -147,3 +147,16 @@ def update(args):
     # print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
     query = [query1,query2]
     return query
+
+DELETE = '''
+DELETE FROM customers
+'''
+
+def delete(args):
+    if args['customer_id'] != '': 
+        query = DELETE
+        query += updateMap['customer_id'].format(args['customer_id'])
+    else: query = ''
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    print(query)
+    return query
