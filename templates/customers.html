@@ -99,6 +99,7 @@
                                 <input type="submit" value="Search" onclick="loading();">
                         </fieldset>
                     </form>
+                    <tbody><td>{{data2_1}}</td></tbody><tbody>
                     <table class="base_qry_render">
                         <thead>
                             <tr>
@@ -117,17 +118,14 @@
                                 <th>Points</th>
                                 <th>Level</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            
-                                {% for row in data2 %}
+                        </thead>                            
+                                {% for row in data2_2 %}
                                 <tr>
                                     {% for element in row %}
                                     <td>{{element}}</td>
                                     {% endfor %}    
                                 </tr>
                                 {% endfor %}
-                            
                         </tbody>
                     </table>
                     <br />

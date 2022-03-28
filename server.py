@@ -22,7 +22,7 @@ from flask import Flask, request, render_template, g, redirect, Response
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
 
-
+import query.customers
 #
 # The following is a dummy URI that does not connect to a valid database. You will need to modify it to connect to your Part 2 database in order to use the data.
 #
@@ -148,13 +148,25 @@ def view_customers():
 
 @app.route("/search_customers/",methods=['POST'])
 def search_customers():
-
-  result = "successful!s"
-  return render_template("customers.html", **dict(data2 = result))
+  q = query.customers.fetch(request.form)
+  cursor = g.conn.execute(q)
+  result = []
+  for c in cursor:
+    result.append(c)
+  # print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+  # print(result)
+  if(result == []): 
+    result = 'There are no matching results.'
+    return render_template("customers.html", **dict(data2_1 = result))
+  else: 
+    # print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+    return render_template("customers.html", **dict(data2_2 = result))
 
 @app.route("/update_customers/",methods=['POST'])
 def update_customers():
-  result = "Update successfully!"
+  q = query.customers.update(request.form)
+  cursor = g.conn.execute(q)
+  result = 'Update successfully!'
   return render_template("customers.html", data3 = result)
 
 @app.route("/delete_customers/",methods=['POST'])
