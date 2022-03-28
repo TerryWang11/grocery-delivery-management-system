@@ -148,6 +148,7 @@ def view_customers():
 
 @app.route("/search_customers/",methods=['POST'])
 def search_customers():
+
   q = query.customers.fetch(request.form)
   cursor = g.conn.execute(q)
   result = []
@@ -165,8 +166,13 @@ def search_customers():
 @app.route("/update_customers/",methods=['POST'])
 def update_customers():
   q = query.customers.update(request.form)
-  cursor = g.conn.execute(q)
-  result = 'Update successfully!'
+  if q[0] == '':
+    result = 'Update failed, please enter correct customer_id.'
+  else:
+    g.conn.execute(q[0])
+    if q[1] != '':
+      g.conn.execute(q[1])
+    result = 'Update successfully!'
   return render_template("customers.html", data3 = result)
 
 @app.route("/delete_customers/",methods=['POST'])

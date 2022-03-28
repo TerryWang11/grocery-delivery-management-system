@@ -87,10 +87,63 @@ def fetch(args):
     return query
 
 
-UPDATE = '''
-UPDATE customers 
+UPDATE_C = '''
+UPDATE customers SET
 '''
 
+UPDATE_M = '''
+UPDATE member_customers SET
+'''
+
+updateMap = {
+    'c_first_name': " c_first_name = '{}' ,",
+    'c_last_name': " c_last_name = '{}' ,",
+    'birth_date': " birth_date = '{}' ,",
+    'phone': " phone = '{}' ,",
+    'address': " address = '{}' ,",
+    'city': " city = '{}' ,",
+    'state': " state = '{}' ,",
+    'zip_code': " zip_code = '{}' ,",
+    'account_balance': " account_balance = '{}' ,",
+    'start_date': " start_date = '{}' ,",
+    'end_date': " end_date = '{}' ,",
+    'points': " points = '{}' ,",
+    'level': " level = '{}' ,",
+
+    'customer_id': " WHERE customer_id = '{}'"
+}
+
 def update(args):
-    query = []
+    query1 = UPDATE_C
+    if args['c_first_name'] != '': query1 += updateMap['c_first_name'].format(args['c_first_name'])
+    if args['c_last_name'] != '': query1 += updateMap['c_last_name'].format(args['c_last_name'])
+    if args['birth_date'] != '': query1 += updateMap['birth_date'].format(args['birth_date'])
+    if args['phone'] != '': query1 += updateMap['phone'].format(args['phone'])
+    if args['address'] != '': query1 += updateMap['address'].format(args['address'])
+    if args['city'] != '': query1 += updateMap['city'].format(args['city'])
+    if args['state'] != '': query1 += updateMap['state'].format(args['state'])
+    if args['zip_code'] != '': query1 += updateMap['zip_code'].format(args['zip_code'])
+    if args['account_balance'] != '': query1 += updateMap['account_balance'].format(args['account_balance'])
+    query1 = query1[0:-1]
+    query1 += updateMap['customer_id'].format(args['customer_id'])
+    if (args['c_first_name'] == '') & (args['c_last_name'] == '') \
+        & (args['birth_date'] == '') & (args['phone'] == '') & (args['address'] == '') \
+        & (args['city'] == '') & (args['state'] == '') & (args['zip_code'] == '')\
+        & (args['account_balance'] == '') & ('member_customers' not in args):
+        query1 = ''
+    query2 = ''
+    if 'member_customers' in args:
+        query2 = UPDATE_M 
+        if args['start_date'] != '': query2 += updateMap['start_date'].format(args['start_date'])
+        if args['end_date'] != '': query2 += updateMap['end_date'].format(args['end_date'])
+        if args['points'] != '': query2 += updateMap['points'].format(args['points'])
+        if args['level'] != '': query2 += updateMap['level'].format(args['level'])
+        query2 = query2[0:-1]
+        query2 += updateMap['customer_id'].format(args['customer_id'])
+    # print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    # print(query1)
+    # print("xxxxxxxxxxxxxxxxxxx")
+    # print(query2)
+    # print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+    query = [query1,query2]
     return query
