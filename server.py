@@ -81,7 +81,6 @@ def teardown_request(exception):
   except Exception as e:
     pass
 
-
 #
 # @app.route is a decorator around index() that means:
 #   run index() whenever the user tries to access the "/" path using a GET request
@@ -109,102 +108,64 @@ def index():
 
   # DEBUG: this is debugging code to see what request looks like
   print (request.args)
-
-
-  #
-  # example of a database query
-  #
-  # cursor = g.conn.execute("SELECT name FROM test")
-  # names = []
-  # for result in cursor:
-  #   names.append(result['name'])  # can also be accessed using result[0]
-  # cursor.close()
-
-  #
-  # Flask uses Jinja templates, which is an extension to HTML where you can
-  # pass data to a template and dynamically generate HTML based on the data
-  # (you can think of it as simple PHP)
-  # documentation: https://realpython.com/blog/python/primer-on-jinja-templating/
-  #
-  # You can see an example template in templates/index.html
-  #
-  # context are the variables that are passed to the template.
-  # for example, "data" key in the context variable defined below will be 
-  # accessible as a variable in index.html:
-  #
-  #     # will print: [u'grace hopper', u'alan turing', u'ada lovelace']
-  #     <div>{{data}}</div>
-  #     
-  #     # creates a <div> tag for each element in data
-  #     # will print: 
-  #     #
-  #     #   <div>grace hopper</div>
-  #     #   <div>alan turing</div>
-  #     #   <div>ada lovelace</div>
-  #     #
-  #     {% for n in data %}
-  #     <div>{{n}}</div>
-  #     {% endfor %}
-  #
-  # context = dict(data = names)
-
-
-  #
-  # render_template looks in the templates/ folder for files.
-  # for example, the below file reads template/index.html
-  #
-  # return render_template("index.html", **context)
   return render_template("home.html")
 
-#
-# This is an example of a different path.  You can see it at:
-# 
-#     localhost:8111/another
-#
-# Notice that the function name is another() rather than index()
-# The functions for each app.route need to have different names
-#
-# @app.route('/another')
-# def another():
-#   return render_template("another.html")
 
-@app.route("/customers/", methods=["POST", "GET"])
-def customers_render():
-  if "GET" == request.method:
-    return render_template("customers.html")
-  else:
-    # query = application.doctors.fetch(request.form)
-    # cursor = g.conn.execute(query)
-    # result = []
-    # for c in cursor:
-    #   result.append(c)
-    result = "successful!"
-    return render_template("customers.html", **dict(data = result))
+# Link to feature page
+@app.route("/customers/")
+def customers():
+  return render_template("customers.html")
 
-@app.route("/deliverymen/", methods=["POST", "GET"])
-def deliverymen_render():
-  if "GET" == request.method:
-    return render_template("deliverymen.html")
-  else:
-    result = "successful!"
-    return render_template("deliverymen.html", **dict(data = result))
+@app.route("/deliverymen/")
+def deliverymen():
+  return render_template("deliverymen.html")
 
-@app.route("/orders/", methods=["POST", "GET"])
-def orders_render():
-  if "GET" == request.method:
-    return render_template("orders.html")
-  else:
-    result = "successful!"
-    return render_template("orders.html", **dict(data = result))
+@app.route("/orders/")
+def orders():
+  return render_template("orders.html")
+
+@app.route("/products/")
+def products():
+  return render_template("products.html")
+
+# Implement specific query functions
+# customers management
+@app.route("/view_customers/",methods=['POST'])
+def view_customers():
+  cursor = g.conn.execute('''
+  SELECT c.customer_id, c.c_first_name, c.c_last_name, c.phone,
+  c.birth_date, c.address, c.city, c.state, c.zip_code, 
+  c.account_balance, m.start_date, m.end_date, m.points, m.level
+  FROM customers c 
+  LEFT OUTER JOIN member_customers m 
+  ON c.customer_id = m.customer_id
+  ORDER BY c.customer_id;
+''')
+  result = []
+  for c in cursor:
+    result.append(c)
+  return render_template("customers.html", **dict(data1 = result))
+
+@app.route("/search_customers/",methods=['POST'])
+def search_customers():
+
+  result = "successful!s"
+  return render_template("customers.html", **dict(data2 = result))
+
+@app.route("/update_customers/",methods=['POST'])
+def update_customers():
+  result = "Update successfully!"
+  return render_template("customers.html", data3 = result)
+
+@app.route("/delete_customers/",methods=['POST'])
+def delete_customers():
+  result = "Delete successfully!"
+  return render_template("customers.html", data4 = result)
 
 
-@app.route("/products/", methods=["POST", "GET"])
-def products_render():
-  if "GET" == request.method:
-    return render_template("products.html")
-  else:
-    result = "successful!"
-    return render_template("products.html", **dict(data = result))
+
+
+
 
 
 # Example of adding new data to the database

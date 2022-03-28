@@ -27,7 +27,7 @@
                     <div class="box">
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li><a href="/customer">Customer</a></li>
+                            <li><a href="/customers">Customers</a></li>
                             <li><a href="/deliverymen">Delivery Men</a></li>
                             <li><a href="/orders">Orders</a></li>
                             <li><a href="/products">Products</a></li>
@@ -47,6 +47,37 @@
                                 <input type="submit" value="View" onclick="loading();">
                         </fieldset>
                     </form>
+                    <table class="base_qry_render">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Birth Date</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Zip Code</th>
+                                <th>Account Balance</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Points</th>
+                                <th>Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                                {% for row in data1 %}
+                                <tr>
+                                    {% for element in row %}
+                                    <td>{{element}}</td>
+                                    {% endfor %}    
+                                </tr>
+                                {% endfor %}
+                            
+                        </tbody>
+                    </table>
                     <br />
                     <form accept-charset="UTF-8" action="/search_customers" autocomplete="off" method="POST"
                         target="_blank">
@@ -89,7 +120,7 @@
                         </thead>
                         <tbody>
                             
-                                {% for row in data %}
+                                {% for row in data2 %}
                                 <tr>
                                     {% for element in row %}
                                     <td>{{element}}</td>
@@ -120,6 +151,9 @@
                                 <input type="submit" value="Update" onclick="loading();">
                         </fieldset>
                     </form>
+                        <tbody>
+                            <td>{{data3}}</td>
+                        </tbody>
                     <br />
                     <form accept-charset="UTF-8" action="/delete_customers" autocomplete="off" method="POST"
                         target="_blank">
@@ -141,6 +175,9 @@
                                 <input type="submit" value="Delete" onclick="loading();">
                         </fieldset>
                     </form>
+                        <tbody>
+                            <td>{{data4}}</td>
+                        </tbody>
                     <br />
                 </div>
             </div>
