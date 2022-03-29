@@ -183,6 +183,22 @@ def delete_customers():
   else: result = "Delete successfully!"
   return render_template("customers.html", data4 = result)
 
+@app.route("/add_customers/",methods=['POST'])
+def add_customers():
+  q = query.customers.add(request.form)
+  if q[0] == '':
+    result = 'Create failed, please fill in all fields marked with * and enter a correct customer_id.'
+  else:
+    g.conn.execute(q[0])
+    if q[1] != '':
+      g.conn.execute(q[1])
+    result = 'Create successfully!'
+  return render_template("customers.html", data5 = result)
+
+# delivery men management
+# ...
+
+
 
 
 # Example of adding new data to the database

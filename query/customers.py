@@ -82,8 +82,6 @@ def fetch(args):
         if args['end_date'] != '': query += queryMap['end_date'].format(args['end_date'])
         if args['level'] != '': query += queryMap['level'].format(args['level'])
     query += 'ORDER BY c.customer_id'
-    # print(args)
-    # print(str(query))
     return query
 
 
@@ -157,6 +155,48 @@ def delete(args):
         query = DELETE
         query += updateMap['customer_id'].format(args['customer_id'])
     else: query = ''
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    print(query)
+    return query
+
+ADD_C = '''
+INSERT INTO customers VALUES(
+'''
+
+ADD_M = '''
+INSERT INTO member_customers (customer_id, start_date, end_date, points, level)
+VALUES(
+'''
+
+def add(args):
+    if (args['customer_id'] == '') or (args['phone'] == '') or (args['account_balance'] == ''):
+        return ['','']
+    query1 = ADD_C
+    query1 += args['customer_id'] + ','
+    if args['c_first_name'] != '': query1 += '\'' + args['c_first_name'] + '\'' + ','
+    else: query1 += 'DEFAULT,'
+    if args['c_last_name'] != '': query1 += '\'' + args['c_last_name'] + '\'' + ','
+    else: query1 += 'DEFAULT,'
+    if args['birth_date'] != '': query1 += '\'' +args['birth_date'] + '\'' + ','
+    else: query1 += 'DEFAULT,'
+    query1 += '\'' + args['phone'] + '\'' + ','
+    if args['address'] != '': query1 += '\'' + args['address'] + '\'' + ','
+    else: query1 += 'DEFAULT,'
+    if args['city'] != '': query1 += '\'' + args['city'] + '\'' + ','
+    else: query1 += 'DEFAULT,'
+    if args['state'] != '': query1 += '\'' + args['state'] + '\'' + ','
+    else: query1 += 'DEFAULT,'
+    if args['zip_code'] != '': query1 += '\'' + args['zip_code'] + '\'' + ','
+    else: query1 += 'DEFAULT,'
+    query1 += args['account_balance'] + ')'
+    query2 = ''
+    if 'member_customers' in args:
+        query2 = ADD_M
+        query2 += args['customer_id'] + ','
+        if args['start_date'] != '': query2 += '\'' + args['start_date'] + '\'' + ','
+        else: query2 += 'DEFAULT,'
+        if args['end_date'] != '': query2 += '\'' + args['end_date'] + '\'' + ','
+        else: query2 += 'DEFAULT,'
+        if args['points'] != '': query2 += args['points'] + ','
+        else: query2 += 'DEFAULT,'
+        query2 += '\''+args['level'] + '\'' + ')'
+    query = [query1,query2]
     return query
