@@ -22,7 +22,7 @@ from flask import Flask, request, render_template, g, redirect, Response
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
 
-import query.customers
+import query.customers, query.orders
 #
 # The following is a dummy URI that does not connect to a valid database. You will need to modify it to connect to your Part 2 database in order to use the data.
 #
@@ -108,8 +108,8 @@ def index():
 
   # DEBUG: this is debugging code to see what request looks like
   print (request.args)
-  return render_template("login.html")
-  # return render_template("home.html")
+  # return render_template("login.html")
+  return render_template("home.html")
 
 
 
@@ -155,7 +155,7 @@ def view_customers():
 @app.route("/search_customers/",methods=['POST'])
 def search_customers():
 
-  q = query.customers.fetch(request.form)
+  q = query.orders.fetch(request.form)
   cursor = g.conn.execute(q)
   result = []
   for c in cursor:
@@ -202,6 +202,35 @@ def add_customers():
 # delivery men management
 # ...
 
+# orders management
+@app.route("/view_orders/",methods=['POST'])
+def view_orders():
+  cursor = g.conn.execute('''
+  SELECT o.order_id, o.customer_id, o.delivery_man_id,
+  o.total_price, o.order_status, o.placed_date, od.delivered_date
+  FROM orders_place o
+  LEFT OUTER JOIN orders_deliver od
+  ON o.order_id = od.order_id
+  ORDER BY o.order_id;
+  ''')
+  result = []
+  for c in cursor:
+    result.append(c)
+  return render_template("orders.html", **dict(data1 = result))
+
+@app.route("/search_orders/",methods=['POST'])
+def search_orders():
+  q = query.orders.fetch(request.form)
+  print(q)
+  cursor = g.conn.execute(q)
+  result = []
+  for c in cursor:
+    result.append(c)
+  if(result == []): 
+    result = 'There are no matching results.'
+    return render_template("orders.html", **dict(data2_1 = result))
+  else: 
+    return render_template("orders.html", **dict(data2_2 = result))
 
 
 

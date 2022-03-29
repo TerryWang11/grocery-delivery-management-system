@@ -47,25 +47,56 @@
                                 <input type="submit" value="View" onclick="loading();">
                         </fieldset>
                     </form>
+                    <table class="base_qry_render">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer ID</th>
+                                <th>Delivery Man ID</th>
+                                <th>Total Price</th>
+                                <th>Order Status</th>
+                                <th>Placed Date</th>
+                                <th>Delivered Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                                {% for row in data1 %}
+                                <tr>
+                                    {% for element in row %}
+                                    <td>{{element}}</td>
+                                    {% endfor %}    
+                                </tr>
+                                {% endfor %}
+                            
+                        </tbody>
+                    </table>
                     <br />
                     <form accept-charset="UTF-8" action="/search_orders" autocomplete="off" method="POST"
                         target="_blank">
                         <fieldset>
-                            <legend>Search Order:</legend> 
+                            <legend>Search Order:</legend>
                                 <label for="order_id">Order ID : </label><input name="order_id" type="text"value="" /> <br />
                                 <label for="customer_id">Customer ID : </label><input name="customer_id" type="text"value="" /> <br />
-                                <label for="delivery_men_id">Delivery Men ID : </label><input name="delivery_men_id" type="text"value="" /> <br />
-                                <label for="total_price">Total Price : </label> <input name="total_price"type="text" value="" /> <br />
-                                <label for="order_status">Order Status: </label><select name="order_status"><option value="Processed">Processed</option><option value="Shipped">Shipped</option><option value="Delivered">Delivered</option><option value="Canceled">Canceled</option></select><br />
+                                <label for="delivery_man_id">Delivery Man ID : </label><input name="delivery_man_id" type="text"value="" /> <br />
+                                <label for="order_status">Order Status: </label><select name="order_status">
+                                    <option value=""></option>
+                                    <option value="delivered">delivered</option>
+                                    <option value="processing">processing</option>
+                                    <option value="delivering">delivering</option>
+                                    <option value="canceled">canceled</option></select><br />
                                 <label for="placed_date">Placed Date :</label><input name="placed_date" type="date"/> <br />
                                 <label for="delivered_date">Delivered Date :</label><input name="delivered_date" type="date"/> <br />
                                 <input type="submit" value="Search" onclick="loading();">
                         </fieldset>
                     </form>
+                    <tbody>
+                        <font color="#FF0000"><td>{{data2_1}}</td></font> 
+                    </tbody>
                     <table class="base_qry_render">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Order ID</th>
                                 <th>Customer ID</th>
                                 <th>Delivery Man ID </th>
                                 <th>Total Price</th>
@@ -76,15 +107,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
-                                {% for row in data %}
-                                <tr>
-                                    {% for element in row %}
-                                    <td>{{element}}</td>
-                                    {% endfor %}    
-                                </tr>
-                                {% endfor %}
-                            
+                            {% for row in data2_2 %}
+                            <tr>
+                                {% for element in row %}
+                                <td>{{element}}</td>
+                                {% endfor %}    
+                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                     <br />
