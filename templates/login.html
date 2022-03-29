@@ -60,10 +60,10 @@
 			<h2>Login Form</h2>
 		
 			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-				<form>
-					<input type="email" placeholder="Account Number" required=" " >
-					<input type="password" placeholder="Password" required=" " >
-					<input type="submit" value="Login">
+				<form accept-charset="UTF-8" action="/login" autocomplete="off" method="GET" target="_blank">
+					<input type="text" name="Account Number" placeholder="Account Number" required=" " >
+					<input type="password" name="Password" placeholder="Password" required=" " >
+					<input type="submit" value="Login" onclick="loading();">
 				</form>
 			</div>
 			<h4>For New People</h4>

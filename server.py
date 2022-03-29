@@ -108,7 +108,9 @@ def index():
 
   # DEBUG: this is debugging code to see what request looks like
   print (request.args)
-  return render_template("home.html")
+  return render_template("login.html")
+  # return render_template("home.html")
+
 
 
 # Link to feature page
@@ -183,10 +185,6 @@ def delete_customers():
 
 
 
-
-
-
-
 # Example of adding new data to the database
 @app.route('/add', methods=['POST'])
 def add():
@@ -197,9 +195,19 @@ def add():
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
-  return render_template("login.html")
-    # abort(401)
-    # this_is_never_executed()
+  userid = request.args.get("Account Number")
+  pwd = request.args.get("Password")
+  print('userid:', userid)
+  print('pwd:', pwd)
+  digit = int(userid[0])
+  cursor = g.conn.execute("SELECT * FROM manager_mana where account_number = %s and password_ = %s", userid, pwd)
+  s = cursor.fetchall()
+  cursor.close()
+  if len(s) != 0:
+    return render_template("home.html", err = userid)
+  else:
+    print("invalid account number or passward!")
+    return render_template("login_fail.html", err = userid)
 
 
 if __name__ == "__main__":
