@@ -114,6 +114,10 @@ def index():
 
 
 # Link to feature page
+@app.route("/home/")
+def home():
+  return render_template("home.html")
+
 @app.route("/customers/")
 def customers():
   return render_template("customers.html")
