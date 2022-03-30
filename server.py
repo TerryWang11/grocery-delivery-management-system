@@ -22,7 +22,7 @@ from flask import Flask, request, render_template, g, redirect, Response
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
 
-import query.customers, query.orders
+import query.customers, query.orders, query.deliverymen
 #
 # The following is a dummy URI that does not connect to a valid database. You will need to modify it to connect to your Part 2 database in order to use the data.
 #
@@ -200,6 +200,61 @@ def add_customers():
   return render_template("customers.html", data5 = result)
 
 # delivery men management
+@app.route("/view_deliverymen/",methods=['POST'])
+def view_deliverymen():
+  cursor = g.conn.execute('''
+  SELECT delivery_man_id, d_first_name, d_last_name,phone, rating
+  FROM delivery_men
+  ORDER BY delivery_man_id;
+  ''')
+  result = []
+  for c in cursor:
+    result.append(c)
+  return render_template("deliverymen.html", **dict(data1 = result))
+
+@app.route("/search_deliverymen/",methods=['POST'])
+def search_deliverymen():
+  q = query.deliverymen.fetch(request.form)
+  cursor = g.conn.execute(q)
+  result = []
+  for c in cursor:
+    result.append(c)
+  print(result)
+  if(result == []): 
+    result = 'There are no matching results.'
+    return render_template("deliverymen.html", **dict(data2_1 = result))
+  else: 
+    return render_template("deliverymen.html", **dict(data2_2 = result))
+
+@app.route("/update_deliverymen/",methods=['POST'])
+def update_deliverymen():
+  q = query.deliverymen.update(request.form)
+  if q == '':
+    result = 'Update failed, please enter correct delivery_man_id.'
+  else: 
+    g.conn.execute(q)
+    result = 'Update successfully!'
+  return render_template("deliverymen.html", data3 = result)
+
+@app.route("/delete_deliverymen/",methods=['POST'])
+def delete_deliverymen():
+  q = query.deliverymen.delete(request.form)
+  g.conn.execute(q)
+  if q == '':
+    result = 'Delete failed, please enter delivery_man_id.'
+  else: result = "Delete successfully!"
+  return render_template("deliverymen.html", data4 = result)
+
+@app.route("/add_deliverymen/",methods=['POST'])
+def add_deliverymen():
+  q = query.deliverymen.add(request.form)
+  g.conn.execute(q)
+  if q == '':
+    result = 'Create failed, please fill in all fields marked with * and enter a correct delivery_man_id.'
+  else: result = "Create successfully!"
+  return render_template("deliverymen.html", data5 = result)
+
+# products management
 # ...
 
 # orders management

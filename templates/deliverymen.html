@@ -48,11 +48,33 @@
                         </fieldset>
                     </form>
                     <br />
+                </form>
+                <table class="base_qry_render">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phone</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {% for row in data1 %}
+                            <tr>
+                                {% for element in row %}
+                                <td>{{element}}</td>
+                                {% endfor %}    
+                            </tr>
+                            {% endfor %}
+                    </tbody>
+                </table>
+                <br />
                     <form accept-charset="UTF-8" action="/search_deliverymen" autocomplete="off" method="POST"
                         target="_blank">
                         <fieldset>
                             <legend>Search Delivery Man:</legend> 
-                                <label for="delivery_men_id">Delivery Man ID : </label><input name="delivery_men_id" type="text"value="" /> <br />
+                                <label for="delivery_man_id">Delivery Man ID : </label><input name="delivery_man_id" type="text"value="" /> <br />
                                 <label for="d_first_name">First Name : </label><input name="d_first_name" type="text"value="" /> <br />
                                 <label for="d_last_name">Last Name : </label><input name="d_last_name" type="text"value="" /> <br />
                                 <label for="phone">Phone : </label> <input name="phone"type="text" value="" /> <br />
@@ -60,6 +82,9 @@
                                 <input type="submit" value="Search" onclick="loading();">
                         </fieldset>
                     </form>
+                    <tbody>
+                        <font color="#FF0000"><td>{{data2_1}}</td></font> 
+                    </tbody>
                     <table class="base_qry_render">
                         <thead>
                             <tr>
@@ -72,13 +97,13 @@
                         </thead>
                         <tbody>
                             
-                                {% for row in data %}
-                                <tr>
-                                    {% for element in row %}
-                                    <td>{{element}}</td>
-                                    {% endfor %}    
-                                </tr>
-                                {% endfor %}
+                            {% for row in data2_2 %}
+                            <tr>
+                                {% for element in row %}
+                                <td>{{element}}</td>
+                                {% endfor %}    
+                            </tr>
+                            {% endfor %}
                             
                         </tbody>
                     </table>
@@ -87,27 +112,49 @@
                         target="_blank">
                         <fieldset>
                             <legend>Update Delivery Man:</legend> 
-                            <label for="delivery_man_id">Delivery Man ID(*) : </label><input name="delivery_men_id" type="text"value="" /> <br />
+                            <label for="delivery_man_id">Delivery Man ID(*) : </label><input name="delivery_man_id" type="text"value="" /> <br />
                             <label for="d_first_name">First Name : </label><input name="d_first_name" type="text"value="" /> <br />
                             <label for="d_last_name">Last Name : </label><input name="d_last_name" type="text"value="" /> <br />
                             <label for="phone">Phone : </label> <input name="phone"type="text" value="" /> <br />
                             <label for="rating">Rating : </label> <input name="rating"type="text" value="" /> <br />
-                            <input type="submit" value="Search" onclick="loading();">
+                            <input type="submit" value="Update" onclick="loading();">
                         </fieldset>
                     </form>
+                    <tbody>
+                        <font color="#FF0000"><td>{{data3}}</td></font> 
+                    </tbody>
                     <br />
                     <form accept-charset="UTF-8" action="/delete_deliverymen" autocomplete="off" method="POST"
                         target="_blank">
                         <fieldset>
                             <legend>Delete Delivery Man:</legend> 
-                            <label for="delivery_man_id">Delivery Man ID(*) : </label><input name="delivery_men_id" type="text"value="" /> <br />
-                            <label for="d_first_name">First Name : </label><input name="d_first_name" type="text"value="" /> <br />
+                            <label for="delivery_man_id">Delivery Man ID(*) : </label><input name="delivery_man_id" type="text"value="" /> <br />
+                            <!-- <label for="d_first_name">First Name : </label><input name="d_first_name" type="text"value="" /> <br />
                             <label for="d_last_name">Last Name : </label><input name="d_last_name" type="text"value="" /> <br />
                             <label for="phone">Phone : </label> <input name="phone"type="text" value="" /> <br />
-                            <label for="rating">Rating : </label> <input name="rating"type="text" value="" /> <br />
-                            <input type="submit" value="Search" onclick="loading();">
+                            <label for="rating">Rating : </label> <input name="rating"type="text" value="" /> <br /> -->
+                            <input type="submit" value="Delete" onclick="loading();">
                         </fieldset>
                     </form>
+                    <tbody>
+                        <font color="#FF0000"><td>{{data4}}</td></font> 
+                    </tbody>
+                    <br />
+                    <form accept-charset="UTF-8" action="/add_deliverymen" autocomplete="off" method="POST"
+                        target="_blank">
+                        <fieldset>
+                            <legend>Create Delivery Man:</legend> 
+                            <label for="delivery_man_id">Delivery Man ID(*) : </label><input name="delivery_man_id" type="text"value="" /> <br />
+                            <label for="d_first_name">First Name : </label><input name="d_first_name" type="text"value="" /> <br />
+                            <label for="d_last_name">Last Name : </label><input name="d_last_name" type="text"value="" /> <br />
+                            <label for="phone">Phone(*) : </label> <input name="phone"type="text" value="" /> <br />
+                            <label for="rating">Rating(0~5) : </label> <input name="rating"type="text" value="" /> <br />
+                            <input type="submit" value="Create" onclick="loading();">
+                        </fieldset>
+                    </form>
+                    <tbody>
+                        <font color="#FF0000"><td>{{data5}}</td></font> 
+                    </tbody>
                     <br />
                 </div>
             </div>
