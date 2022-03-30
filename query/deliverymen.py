@@ -10,11 +10,11 @@ WHERE 1>0
 '''
 
 queryMap = {
-    'delivery_man_id': " AND delivery_man_id = '{}' ,",
-    'd_first_name': " AND d_first_name = '{}' ,",
-    'd_last_name': " AND d_last_name = '{}' ,",
-    'phone': " AND phone = '{}' ,",
-    'rating': " AND rating = '{}' ,"
+    'delivery_man_id': " AND delivery_man_id = '{}'",
+    'd_first_name': " AND d_first_name = '{}'",
+    'd_last_name': " AND d_last_name = '{}'",
+    'phone': " AND phone = '{}'",
+    'rating': " AND rating = '{}'"
 }
 
 def fetch(args):
@@ -36,10 +36,10 @@ UPDATE = '''
 UPDATE delivery_men SET
 '''
 updateMap = {
-    'd_first_name': " d_first_name = '{}' ",
-    'd_last_name': " d_last_name = '{}' ",
-    'phone': " phone = '{}' ",
-    'rating': " rating = '{}' ",
+    'd_first_name': " d_first_name = '{}' ,",
+    'd_last_name': " d_last_name = '{}' ,",
+    'phone': " phone = '{}' ,",
+    'rating': " rating = '{}' ,",
 
     'delivery_man_id': " WHERE delivery_man_id = '{}' "
 }

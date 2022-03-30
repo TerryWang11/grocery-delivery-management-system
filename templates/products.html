@@ -40,13 +40,71 @@
             <div class="right_section">
                 <div class="common_content">
                     <h2>Products</h2>
-                    <form accept-charset="UTF-8" action="/view_products" autocomplete="off" method="POST"
+                    <form accept-charset="UTF-8" action="/view_inventory" autocomplete="off" method="POST"
                         target="_blank">
                         <fieldset>
-                            <legend>View Inventory Info:</legend> 
-                                <input type="submit" value="View" onclick="loading();">
+                            <legend>View Inventory Info:</legend>
+                            <input type="submit" value="View" onclick="loading();">
                         </fieldset>
                     </form>
+                    <table class="base_qry_render">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Unit Price</th>
+                                <th>Quantity In Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                {% for row in data1 %}
+                                <tr>
+                                    {% for element in row %}
+                                    <td>{{element}}</td>
+                                    {% endfor %}    
+                                </tr>
+                                {% endfor %}
+                        </tbody>
+                    </table>
+                    <br />
+                    <form accept-charset="UTF-8" action="/search_products" autocomplete="off" method="POST"
+                        target="_blank">
+                        <fieldset>
+                            <legend>Search Products:</legend> 
+                            <label for="product_id">ID(*) : </label><input name="product_id" type="text"value="" /> <br />
+                            <label for="product_name">Name : </label><input name="product_name" type="text"value="" /> <br />
+                            <label for="product_type">Type : </label><input name="product_type" type="text"value="" /> <br />
+                            <label for="unit_price">Unit Price : </label> <input name="unit_price" type="text" value="" /> <br />
+                            <label for="quantity_in_stock">Quantity In Stock: </label> <input name="quantity_in_stock" type="text" value="" /> <br />
+                            <input type="submit" value="Search" onclick="loading();">
+                        </fieldset>
+                    </form>
+                    <tbody>
+                        <font color="#FF0000"><td>{{data2_1}}</td></font> 
+                    </tbody>
+                    <table class="base_qry_render">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Unit Price</th>
+                                <th>Quantity In Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for row in data2_2 %}
+                            <tr>
+                                {% for element in row %}
+                                <td>{{element}}</td>
+                                {% endfor %}    
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
                     <br />
                     <form accept-charset="UTF-8" action="/update_products" autocomplete="off" method="POST"
                         target="_blank">
@@ -60,20 +118,41 @@
                             <input type="submit" value="Update" onclick="loading();">
                         </fieldset>
                     </form>
+                    <tbody>
+                        <font color="#FF0000"><td>{{data3}}</td></font> 
+                    </tbody>
                     <br />
                     <form accept-charset="UTF-8" action="/delete_products" autocomplete="off" method="POST"
                         target="_blank">
                         <fieldset>
                             <legend>Delete Products:</legend> 
                             <label for="product_id">ID : </label><input name="product_id" type="text"value="" /> <br />
+                            <!-- <label for="product_name">Name : </label><input name="product_name" type="text"value="" /> <br />
+                            <label for="product_type">Type : </label><input name="product_type" type="text"value="" /> <br />
+                            <label for="unit_price">Unit Price : </label> <input name="unit_price" type="text" value="" /> <br />
+                            <label for="quantity_in_stock">Quantity In Stock: </label> <input name="quantity_in_stock" type="text" value="" /> <br /> -->
+                            <input type="submit" value="Delete" onclick="loading();">
+                        </fieldset>
+                    </form>
+                    <tbody>
+                        <font color="#FF0000"><td>{{data4}}</td></font> 
+                    </tbody>
+                    <br />
+                    <form accept-charset="UTF-8" action="/add_products" autocomplete="off" method="POST"
+                        target="_blank">
+                        <fieldset>
+                            <legend>Add Products:</legend> 
+                            <label for="product_id">ID(*) : </label><input name="product_id" type="text"value="" /> <br />
                             <label for="product_name">Name : </label><input name="product_name" type="text"value="" /> <br />
                             <label for="product_type">Type : </label><input name="product_type" type="text"value="" /> <br />
                             <label for="unit_price">Unit Price : </label> <input name="unit_price" type="text" value="" /> <br />
                             <label for="quantity_in_stock">Quantity In Stock: </label> <input name="quantity_in_stock" type="text" value="" /> <br />
-                            <input type="submit" value="Delete" onclick="loading();">
+                            <input type="submit" value="Add" onclick="loading();">
                         </fieldset>
                     </form>
-                    <br />
+                    <tbody>
+                        <font color="#FF0000"><td>{{data5}}</td></font> 
+                    </tbody>
                 </div>
             </div>
 

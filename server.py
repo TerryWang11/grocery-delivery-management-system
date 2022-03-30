@@ -22,7 +22,7 @@ from flask import Flask, request, render_template, g, redirect, Response
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
 
-import query.customers, query.orders, query.deliverymen
+import query.customers, query.orders, query.deliverymen, query.products
 #
 # The following is a dummy URI that does not connect to a valid database. You will need to modify it to connect to your Part 2 database in order to use the data.
 #
@@ -255,7 +255,60 @@ def add_deliverymen():
   return render_template("deliverymen.html", data5 = result)
 
 # products management
-# ...
+@app.route("/view_inventory/",methods=['POST'])
+def view_inventory():
+  cursor = g.conn.execute('''
+  SELECT product_id, product_name, product_type, unit_price, quantity_in_stock
+  FROM inventory
+  ORDER BY product_id;
+  ''')
+  result = []
+  for c in cursor:
+    result.append(c)
+  return render_template("products.html", **dict(data1 = result))
+
+@app.route("/search_products/",methods=['POST'])
+def search_products():
+  q = query.products.fetch(request.form)
+  cursor = g.conn.execute(q)
+  result = []
+  for c in cursor:
+    result.append(c)
+  print(result)
+  if(result == []): 
+    result = 'There are no matching results.'
+    return render_template("products.html", **dict(data2_1 = result))
+  else: 
+    return render_template("products.html", **dict(data2_2 = result))
+
+@app.route("/update_products/",methods=['POST'])
+def update_products():
+  q = query.products.update(request.form)
+  if q == '':
+    result = 'Update failed, please enter correct product_id.'
+  else: 
+    g.conn.execute(q)
+    result = 'Update successfully!'
+  return render_template("products.html", data3 = result)
+
+@app.route("/delete_products/",methods=['POST'])
+def delete_products():
+  q = query.products.delete(request.form)
+  g.conn.execute(q)
+  if q == '':
+    result = 'Delete failed, please enter product_id.'
+  else: result = "Delete successfully!"
+  return render_template("products.html", data4 = result)
+
+@app.route("/add_products/",methods=['POST'])
+def add_products():
+  q = query.products.add(request.form)
+  g.conn.execute(q)
+  if q == '':
+    result = 'Create failed, please fill in all fields marked with * and enter a correct product_id.'
+  else: result = "Create successfully!"
+  return render_template("products.html", data5 = result)
+
 
 # orders management
 @app.route("/view_orders/",methods=['POST'])
