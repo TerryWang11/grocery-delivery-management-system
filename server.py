@@ -389,7 +389,20 @@ def search_orders():
   else: 
     return render_template("orders.html", **dict(data2_2 = result))
 
-
+@app.route("/update_orders/",methods=['POST'])
+def update_orders():
+  q1 = query.orders.MAX_ORDER_ID
+  cursor = g.conn.execute(q1)
+  o_id = 0
+  for c in cursor:
+      o_id = c
+  q = query.orders.update(o_id[0],request.form)
+  if q == '':
+    result = 'Update failed. Please enter the correct order_id and fill in at least one other field.'
+  else: 
+    g.conn.execute(q)
+    result = 'Update successfully!'
+  return render_template("orders.html", data3 = result)
 
 # Example of adding new data to the database
 @app.route('/add', methods=['POST'])
