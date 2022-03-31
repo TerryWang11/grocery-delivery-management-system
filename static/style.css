@@ -39,7 +39,8 @@ body {
 	ul li {list-style-type:disc;}
 	ol li {list-style-type:decimal;}
 	ul li,
-	ol li {font-size: 12px; line-height: 16px;margin: 0 0 10px 15px;}
+	/* ol li {font-size: 12px; line-height: 16px;margin: 0 0 10px 15px;} */
+	ol li {font-size: 16px; line-height: 16px;margin: 0 0 10px 15px;}
 
 	table,th,td {border:1px solid #BBBBBB;}
 	th {padding:3px; font-weight:bold;color:#5c5a45;}
@@ -69,23 +70,30 @@ body {
 
 /*----start header----*/
 #header {
-	padding:0px 0px 5px;
+	padding:100px 0px 10px;
 }
 
-#header .top_banner{
+/* #header .top_banner{
 	background:url(../static/images/header_b.jpg) no-repeat left top;
 	height:60px;
 	padding:65px 95px 0 65px;
 	border:#6E6065 solid 1px;
+} */
+
+#header .top_banner{
+	background:url(../static/images/header_b.jpg) no-repeat left top;
+	height:60px;
+	padding:390px 95px 0px 65px;
+	border:#6E6065 solid 1px;
 }
 
 #header h1{
-	font-size:34px;
+	font-size:40px;
 	font-family:'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica, Sans-Serif;
 	color:#2F1B09;
-	margin:0px;
+	margin:-450px;
 	font-weight:normal;
-	padding:0px 0px 10px;
+	padding:0px 400px 10px;
 }
 
 #header h1 a {
@@ -207,7 +215,7 @@ a.btn:hover{
 }
 
 .left_side_bar .col_1 .box{
-	padding:5px 11px 5px;
+	padding:5px 0px 5px;
 }
 
 
