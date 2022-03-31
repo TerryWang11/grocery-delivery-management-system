@@ -173,9 +173,9 @@ def update_customers():
   for c in cursor:
       c_id = c
   q = query.customers.update(c_id[0],request.form)
-  if q[0] == '':
+  if q[0] == '' and q[1] == '':
     result = 'Update failed. Please enter the correct customer_id and fill in at least one other field.'
-  else:
+  elif q[0] != '':
     g.conn.execute(q[0])
     if q[1] != '':
       g.conn.execute(q[1])
