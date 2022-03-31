@@ -1,5 +1,6 @@
-import logging
-from sqlalchemy import text
+MAX_CUS_ID = """
+    SELECT MAX(customer_id) FROM customers
+"""
 
 QUERY_E = '''
 SELECT 
@@ -65,7 +66,6 @@ def fetch(args):
         & (args['birth_date'] == '') & (args['phone'] == '') & (args['address'] == '') \
         & (args['city'] == '') & (args['state'] == '') & (args['zip_code'] == '')\
         & ('member_customers' not in args):
-        #& (args['start_date'] == '') & (args['end_date'] == '' )& (args['level'] == ''):
         query = QUERY_E
     else: query = QUERY
     if args['customer_id'] != '': query += queryMap['customer_id'].format(args['customer_id'])
@@ -111,7 +111,8 @@ updateMap = {
     'customer_id': " WHERE customer_id = '{}'"
 }
 
-def update(args):
+def update(id, args):
+    if int(args['customer_id']) > id: return ['','']
     query1 = UPDATE_C
     if args['c_first_name'] != '': query1 += updateMap['c_first_name'].format(args['c_first_name'])
     if args['c_last_name'] != '': query1 += updateMap['c_last_name'].format(args['c_last_name'])
@@ -138,11 +139,6 @@ def update(args):
         if args['level'] != '': query2 += updateMap['level'].format(args['level'])
         query2 = query2[0:-1]
         query2 += updateMap['customer_id'].format(args['customer_id'])
-    # print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-    # print(query1)
-    # print("xxxxxxxxxxxxxxxxxxx")
-    # print(query2)
-    # print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
     query = [query1,query2]
     return query
 
@@ -150,7 +146,8 @@ DELETE = '''
 DELETE FROM customers
 '''
 
-def delete(args):
+def delete(id, args):
+    if int(args['customer_id']) > id: return ''
     if args['customer_id'] != '': 
         query = DELETE
         query += updateMap['customer_id'].format(args['customer_id'])
@@ -166,11 +163,11 @@ INSERT INTO member_customers (customer_id, start_date, end_date, points, level)
 VALUES(
 '''
 
-def add(args):
-    if (args['customer_id'] == '') or (args['phone'] == '') or (args['account_balance'] == ''):
+def add(id, args):
+    if (args['phone'] == '') or (args['account_balance'] == ''):
         return ['','']
     query1 = ADD_C
-    query1 += args['customer_id'] + ','
+    query1 += str(id) + ','
     if args['c_first_name'] != '': query1 += '\'' + args['c_first_name'] + '\'' + ','
     else: query1 += 'DEFAULT,'
     if args['c_last_name'] != '': query1 += '\'' + args['c_last_name'] + '\'' + ','
@@ -190,7 +187,7 @@ def add(args):
     query2 = ''
     if 'member_customers' in args:
         query2 = ADD_M
-        query2 += args['customer_id'] + ','
+        query2 += str(id) + ','
         if args['start_date'] != '': query2 += '\'' + args['start_date'] + '\'' + ','
         else: query2 += 'DEFAULT,'
         if args['end_date'] != '': query2 += '\'' + args['end_date'] + '\'' + ','
@@ -200,3 +197,35 @@ def add(args):
         query2 += '\''+args['level'] + '\'' + ')'
     query = [query1,query2]
     return query
+
+# ADD_C = '''
+#     INSERT INTO customers 
+#     VALUES({customer_id}, '{c_first_name}', '{c_last_name}','{birth_date}',
+#      '{phone}', '{address}', '{city}', '{state}', '{zip_code}', '{account_balance}')
+# '''
+
+# ADD_M = '''
+#     INSERT INTO member_customers (customer_id, start_date, end_date, points, level)
+#     VALUES({customer_id}, '{start_date}', '{end_date}', '{points}', '{level}')
+# '''
+
+# def add(id, args):
+#     print("sdssdsfdsfsdfdsffdsfsfsdf")
+#     print(args)
+#     if (args['phone'] == '') or (args['account_balance'] == ''):
+#         return ['','']
+#     query1 = ADD_C
+#     query1 = query1.format(customer_id = str(int(id) + 1), c_first_name = args['c_first_name'], 
+#     c_last_name = args['c_last_name'],birth_date = args['birth_date'],phone = args['phone'],
+#     address = args['address'],city = args['city'],state = args['state'],
+#     zip_code = args['zip_code'],account_balance = args['account_balance'])
+#     query2 = ''
+#     if 'member_customers' in args:
+#         query2 = ADD_M
+#         query2 =query2.format(customer_id = str(int(id) + 1), start_date = args['start_date'], 
+#         end_date = args['end_date'], points = args['points'],level = args['level'])
+#         if args['start_date'] == '' : query2 = query2.format(start_date = '0000-00-00')
+#         if args['end_date'] == '' : query2 = query2.format(end_date = '0000-00-00')
+#     print(query1+">>>>>>>>>>>>>>>>>>>"+query2)
+#     query = [query1,query2]
+#     return query

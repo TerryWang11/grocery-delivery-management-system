@@ -1,3 +1,7 @@
+MAX_PRO_ID = """
+    SELECT MAX(product_id) FROM inventory
+"""
+
 QUERY = '''
 SELECT
     product_id, 
@@ -7,6 +11,17 @@ SELECT
     quantity_in_stock
 FROM inventory
 WHERE 1>0
+'''
+
+QUERY_E = '''
+SELECT
+    product_id, 
+    product_name, 
+    product_type, 
+    unit_price, 
+    quantity_in_stock
+FROM inventory
+WHERE 0>1
 '''
 
 queryMap = {
@@ -21,7 +36,7 @@ def fetch(args):
     print(args)
     if (args['product_id'] == '') & (args['product_name'] == '') & (args['product_type'] == '') \
         & (args['unit_price'] == '') & (args['quantity_in_stock'] == ''):
-        query = ''
+        query = QUERY_E
     else: 
         query = QUERY
     if args['product_id'] != '': query += queryMap['product_id'].format(args['product_id'])
@@ -44,7 +59,8 @@ updateMap = {
     'product_id': " WHERE product_id = '{}' "
 }
 
-def update(args):
+def update(id, args):
+    if int(args['product_id']) > id: return ''
     query = UPDATE
     if args['product_name'] != '': query += updateMap['product_name'].format(args['product_name'])
     if args['product_type'] != '': query += updateMap['product_type'].format(args['product_type'])
@@ -60,7 +76,8 @@ def update(args):
 DELETE = '''
 DELETE FROM inventory
 '''
-def delete(args):
+def delete(id, args):
+    if int(args['product_id']) > id: return ''
     if args['product_id'] != '': 
         query = DELETE
         query += updateMap['product_id'].format(args['product_id'])
@@ -72,10 +89,12 @@ INSERT INTO inventory (product_id, product_name, product_type, unit_price, quant
 VALUES(
 '''
 
-def add(args):
-    if (args['product_id'] == ''): return ''
+def add(id, args):
+    print(">>>>>>>>>>>>>>>>>")
+    print(id)
+    print(str(args))
     query = ADD
-    query += args['product_id'] + ','
+    query += str(id) + ','
     if args['product_name'] != '': query += '\'' + args['product_name'] + '\'' + ','
     else: query += 'DEFAULT,'
     if args['product_type'] != '': query += '\'' + args['product_type'] + '\'' + ','
@@ -84,4 +103,6 @@ def add(args):
     else: query += 'DEFAULT,'
     if args['quantity_in_stock'] != '': query += args['quantity_in_stock'] + ')'
     else: query += 'DEFAULT)'
+    print(">>>>>>>>>>>>>>>>>")
+    print(query)
     return query

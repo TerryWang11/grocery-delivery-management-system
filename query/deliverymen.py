@@ -1,3 +1,7 @@
+MAX_DEL_ID = """
+    SELECT MAX(delivery_man_id) FROM delivery_men
+"""
+
 QUERY = '''
 SELECT 
     delivery_man_id, 
@@ -7,6 +11,17 @@ SELECT
     rating
 FROM delivery_men
 WHERE 1>0
+'''
+
+QUERY_E = '''
+SELECT 
+    delivery_man_id, 
+    d_first_name, 
+    d_last_name,
+    phone, 
+    rating
+FROM delivery_men
+WHERE 0>1
 '''
 
 queryMap = {
@@ -21,7 +36,7 @@ def fetch(args):
     print(args)
     if (args['delivery_man_id'] == '') & (args['d_first_name'] == '') & (args['d_last_name'] == '') \
         & (args['phone'] == '') & (args['rating'] == ''):
-        query = ''
+        query = QUERY_E
     else: 
         query = QUERY
     if args['delivery_man_id'] != '': query += queryMap['delivery_man_id'].format(args['delivery_man_id'])
@@ -44,7 +59,8 @@ updateMap = {
     'delivery_man_id': " WHERE delivery_man_id = '{}' "
 }
 
-def update(args):
+def update(id, args):
+    if int(args['delivery_man_id']) > id: return ''
     query = UPDATE
     if args['d_first_name'] != '': query += updateMap['d_first_name'].format(args['d_first_name'])
     if args['d_last_name'] != '': query += updateMap['d_last_name'].format(args['d_last_name'])
@@ -62,7 +78,8 @@ DELETE = '''
 DELETE FROM delivery_men
 '''
 
-def delete(args):
+def delete(id, args):
+    if int(args['delivery_man_id']) > id: return ''
     if args['delivery_man_id'] != '': 
         query = DELETE
         query += updateMap['delivery_man_id'].format(args['delivery_man_id'])
@@ -73,11 +90,11 @@ ADD = '''
 INSERT INTO delivery_men VALUES(
 '''
 
-def add(args):
-    if (args['delivery_man_id'] == '') or (args['phone'] == ''):
+def add(id, args):
+    if (args['phone'] == ''):
         return ''
     query = ADD
-    query += args['delivery_man_id'] + ','
+    query += str(id) + ','
     if args['d_first_name'] != '': query += '\'' + args['d_first_name'] + '\'' + ','
     else: query += 'DEFAULT,'
     if args['d_last_name'] != '': query += '\'' + args['d_last_name'] + '\'' + ','

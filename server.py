@@ -154,8 +154,7 @@ def view_customers():
 
 @app.route("/search_customers/",methods=['POST'])
 def search_customers():
-
-  q = query.orders.fetch(request.form)
+  q = query.customers.fetch(request.form)
   cursor = g.conn.execute(q)
   result = []
   for c in cursor:
@@ -168,9 +167,14 @@ def search_customers():
 
 @app.route("/update_customers/",methods=['POST'])
 def update_customers():
-  q = query.customers.update(request.form)
+  q1 = query.customers.MAX_CUS_ID
+  cursor = g.conn.execute(q1)
+  c_id = 0
+  for c in cursor:
+      c_id = c
+  q = query.customers.update(c_id[0],request.form)
   if q[0] == '':
-    result = 'Update failed, please enter correct customer_id.'
+    result = 'Update failed. Please enter the correct customer_id and fill in at least one other field.'
   else:
     g.conn.execute(q[0])
     if q[1] != '':
@@ -180,18 +184,29 @@ def update_customers():
 
 @app.route("/delete_customers/",methods=['POST'])
 def delete_customers():
-  q = query.customers.delete(request.form)
-  g.conn.execute(q)
+  q1 = query.customers.MAX_CUS_ID
+  cursor = g.conn.execute(q1)
+  c_id = 0
+  for c in cursor:
+      c_id = c
+  q = query.customers.delete(c_id[0],request.form)
   if q == '':
-    result = 'Delete failed, please enter customer_id.'
-  else: result = "Delete successfully!"
+    result = 'Delete failed. Please enter the correct customer_id.'
+  else: 
+    g.conn.execute(q)
+    result = "Delete successfully!"
   return render_template("customers.html", data4 = result)
 
 @app.route("/add_customers/",methods=['POST'])
 def add_customers():
-  q = query.customers.add(request.form)
+  q1 = query.customers.MAX_CUS_ID
+  cursor = g.conn.execute(q1)
+  c_id = 0
+  for c in cursor:
+      c_id = c
+  q = query.customers.add(c_id[0]+1, request.form)
   if q[0] == '':
-    result = 'Create failed, please fill in all fields marked with * and enter a correct customer_id.'
+    result = 'Create failed. Please fill in all fields marked with *.'
   else:
     g.conn.execute(q[0])
     if q[1] != '':
@@ -228,9 +243,14 @@ def search_deliverymen():
 
 @app.route("/update_deliverymen/",methods=['POST'])
 def update_deliverymen():
-  q = query.deliverymen.update(request.form)
+  q1 = query.deliverymen.MAX_DEL_ID
+  cursor = g.conn.execute(q1)
+  d_id = 0
+  for c in cursor:
+      d_id = c
+  q = query.deliverymen.update(d_id[0], request.form)
   if q == '':
-    result = 'Update failed, please enter correct delivery_man_id.'
+    result = 'Update failed. Please enter the correct delivery_man_id and fill in at least one other field.'
   else: 
     g.conn.execute(q)
     result = 'Update successfully!'
@@ -238,20 +258,32 @@ def update_deliverymen():
 
 @app.route("/delete_deliverymen/",methods=['POST'])
 def delete_deliverymen():
-  q = query.deliverymen.delete(request.form)
-  g.conn.execute(q)
+  q1 = query.deliverymen.MAX_DEL_ID
+  cursor = g.conn.execute(q1)
+  d_id = 0
+  for c in cursor:
+      d_id = c
+  q = query.deliverymen.delete(d_id[0], request.form)
   if q == '':
-    result = 'Delete failed, please enter delivery_man_id.'
-  else: result = "Delete successfully!"
+    result = 'Delete failed. Please enter the correct delivery_man_id.'
+  else: 
+    g.conn.execute(q)
+    result = "Delete successfully!"
   return render_template("deliverymen.html", data4 = result)
 
 @app.route("/add_deliverymen/",methods=['POST'])
 def add_deliverymen():
-  q = query.deliverymen.add(request.form)
-  g.conn.execute(q)
+  q1 = query.deliverymen.MAX_DEL_ID
+  cursor = g.conn.execute(q1)
+  d_id = 0
+  for c in cursor:
+      d_id = c
+  q = query.deliverymen.add(d_id[0]+1, request.form)
   if q == '':
-    result = 'Create failed, please fill in all fields marked with * and enter a correct delivery_man_id.'
-  else: result = "Create successfully!"
+    result = 'Create failed. Please fill in all fields marked with *.'
+  else: 
+    g.conn.execute(q)
+    result = "Create successfully!"
   return render_template("deliverymen.html", data5 = result)
 
 # products management
@@ -283,9 +315,14 @@ def search_products():
 
 @app.route("/update_products/",methods=['POST'])
 def update_products():
-  q = query.products.update(request.form)
+  q1 = query.products.MAX_PRO_ID
+  cursor = g.conn.execute(q1)
+  p_id = 0
+  for c in cursor:
+      p_id = c
+  q = query.products.update(p_id[0], request.form)
   if q == '':
-    result = 'Update failed, please enter correct product_id.'
+    result = 'Update failed. Please enter the correct product_id and fill in at least one other field.'
   else: 
     g.conn.execute(q)
     result = 'Update successfully!'
@@ -293,20 +330,32 @@ def update_products():
 
 @app.route("/delete_products/",methods=['POST'])
 def delete_products():
-  q = query.products.delete(request.form)
-  g.conn.execute(q)
+  q1 = query.products.MAX_PRO_ID
+  cursor = g.conn.execute(q1)
+  p_id = 0
+  for c in cursor:
+      p_id = c
+  q = query.products.delete(p_id[0], request.form)
   if q == '':
-    result = 'Delete failed, please enter product_id.'
-  else: result = "Delete successfully!"
+    result = 'Delete failed. Please enter the correct product_id.'
+  else: 
+    g.conn.execute(q)
+    result = "Delete successfully!"
   return render_template("products.html", data4 = result)
 
 @app.route("/add_products/",methods=['POST'])
 def add_products():
-  q = query.products.add(request.form)
-  g.conn.execute(q)
+  q1 = query.products.MAX_PRO_ID
+  cursor = g.conn.execute(q1)
+  p_id = 0
+  for c in cursor:
+      p_id = c
+  q = query.products.add(p_id[0] + 1, request.form)
   if q == '':
-    result = 'Create failed, please fill in all fields marked with * and enter a correct product_id.'
-  else: result = "Create successfully!"
+    result = 'Create failed. Please fill in all fields marked with *.'
+  else: 
+    g.conn.execute(q)
+    result = "Create successfully!"
   return render_template("products.html", data5 = result)
 
 
