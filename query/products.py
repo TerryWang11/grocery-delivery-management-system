@@ -60,7 +60,7 @@ updateMap = {
 }
 
 def update(id, args):
-    if int(args['product_id']) > id: return ''
+    if args['product_id'] == '' or int(args['product_id']) > id: return ''
     query = UPDATE
     if args['product_name'] != '': query += updateMap['product_name'].format(args['product_name'])
     if args['product_type'] != '': query += updateMap['product_type'].format(args['product_type'])
@@ -90,9 +90,6 @@ VALUES(
 '''
 
 def add(id, args):
-    print(">>>>>>>>>>>>>>>>>")
-    print(id)
-    print(str(args))
     query = ADD
     query += str(id) + ','
     if args['product_name'] != '': query += '\'' + args['product_name'] + '\'' + ','
@@ -103,6 +100,4 @@ def add(id, args):
     else: query += 'DEFAULT,'
     if args['quantity_in_stock'] != '': query += args['quantity_in_stock'] + ')'
     else: query += 'DEFAULT)'
-    print(">>>>>>>>>>>>>>>>>")
-    print(query)
     return query

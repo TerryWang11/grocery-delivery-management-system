@@ -60,7 +60,7 @@ updateMap = {
 }
 
 def update(id, args):
-    if int(args['delivery_man_id']) > id: return ''
+    if args['delivery_man_id'] == '' or int(args['delivery_man_id']) > id: return ''
     query = UPDATE
     if args['d_first_name'] != '': query += updateMap['d_first_name'].format(args['d_first_name'])
     if args['d_last_name'] != '': query += updateMap['d_last_name'].format(args['d_last_name'])
