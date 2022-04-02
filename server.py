@@ -404,13 +404,42 @@ def update_orders():
     result = 'Update successfully!'
   return render_template("orders.html", data3 = result)
 
+@app.route("/delete_orders/",methods=['POST'])
+def delete_orders():
+  q1 = query.orders.MAX_ORDER_ID
+  cursor = g.conn.execute(q1)
+  d_id = 0
+  for c in cursor:
+      d_id = c
+  q = query.orders.delete(d_id[0], request.form)
+  if q == '':
+    result = 'Delete failed. Please enter the correct order_id.'
+  else: 
+    g.conn.execute(q)
+    result = "Delete successfully!"
+  return render_template("orders.html", data4 = result)
+
+@app.route("/add_orders/",methods=['POST'])
+def add_orders():
+  q1 = query.orders.MAX_ORDER_ID
+  cursor = g.conn.execute(q1)
+  d_id = 0
+  for c in cursor:
+      d_id = c
+  q = query.orders.add(d_id[0]+1, request.form)
+  if q == '':
+    result = 'Create failed. Please fill in all fields marked with *.'
+  else: 
+    g.conn.execute(q)
+    result = "Create successfully!"
+  return render_template("orders.html", data5 = result)
+
 # Example of adding new data to the database
 @app.route('/add', methods=['POST'])
 def add():
   name = request.form['name']
   g.conn.execute('INSERT INTO test VALUES (NULL, ?)', name)
   return redirect('/')
-
 
 @app.route('/login', methods = ['GET','POST'])
 def login():

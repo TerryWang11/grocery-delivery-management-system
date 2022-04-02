@@ -127,10 +127,10 @@
                             <label for="total_price">Total Price : </label> <input name="total_price"type="text" value="" /> <br />
                             <label for="order_status">Order Status: </label><select name="order_status">
                                 <option value=""></option>
-                                <option value="Processed">Processed</option>
-                                <option value="Shipped">Shipped</option>
-                                <option value="Delivered">Delivered</option>
-                                <option value="Canceled">Canceled</option></select><br />
+                                <option value="processed">processed</option>
+                                <option value="shipped">shipped</option>
+                                <option value="delivered">delivered</option>
+                                <option value="canceled">canceled</option></select><br />
                             <label for="placed_date">Placed Date :</label><input name="placed_date" type="date"/> <br />
                             <label for="delivered_date">Delivered Date :</label><input name="delivered_date" type="date"/> <br />
                             <input type="submit" value="Update" onclick="loading();">
@@ -145,15 +145,35 @@
                         <fieldset>
                             <legend>Delete Order:</legend> 
                             <label for="order_id">Order ID : </label><input name="order_id" type="text"value="" /> <br />
-                            <label for="customer_id">Customer ID : </label><input name="customer_id" type="text"value="" /> <br />
-                            <label for="delivery_men_id">Delivery Men ID : </label><input name="delivery_men_id" type="text"value="" /> <br />
-                            <label for="total_price">Total Price : </label> <input name="total_price"type="text" value="" /> <br />
-                            <label for="order_status">Order Status: </label><select name="order_status"><option value="Processed">Processed</option><option value="Shipped">Shipped</option><option value="Delivered">Delivered</option><option value="Canceled">Canceled</option></select><br />
-                            <label for="placed_date">Placed Date :</label><input name="placed_date" type="date"/> <br />
-                            <label for="delivered_date">Delivered Date :</label><input name="delivered_date" type="date"/> <br />
-                            <input type="submit" value="Search" onclick="loading();">
+                            <input type="submit" value="Delete" onclick="loading();">
                         </fieldset>
                     </form>
+                    <tbody>
+                        <font color="#FF0000"><td>{{data4}}</td></font> 
+                    </tbody>
+                    <br />
+                    <form accept-charset="UTF-8" action="/add_orders" autocomplete="off" method="POST"
+                        target="_blank">
+                        <fieldset>
+                            <legend>Create Order:</legend> 
+                            <!-- <label for="order_id">Order ID(*) : </label><input name="order_id" type="text"value="" /> <br /> -->
+                            <label for="customer_id">Customer ID(*): </label><input name="customer_id" type="text"value="" /> <br />
+                            <label for="delivery_man_id">Delivery Man ID : </label><input name="delivery_man_id" type="text"value="" /> <br />
+                            <label for="total_price">Total Price : </label> <input name="total_price"type="text" value="" /> <br />
+                            <label for="order_status">Order Status: </label><select name="order_status">
+                                <option value=""></option>
+                                <option value="processed">processed</option>
+                                <option value="shipped">shipped</option>
+                                <option value="delivered">delivered</option>
+                                <option value="canceled">canceled</option></select><br />
+                            <label for="placed_date">Placed Date :</label><input name="placed_date" type="date"/> <br />
+                            <label for="delivered_date">Delivered Date :</label><input name="delivered_date" type="date"/> <br />
+                            <input type="submit" value="Create" onclick="loading();">
+                        </fieldset>
+                    </form>
+                    <tbody>
+                        <font color="#FF0000"><td>{{data5}}</td></font> 
+                    </tbody>
                     <br />
                 </div>
             </div>

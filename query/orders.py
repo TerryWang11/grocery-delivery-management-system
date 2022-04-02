@@ -90,3 +90,36 @@ def update(id, args):
         & (args['placed_date'] == '') & (args['delivered_date'] == ''):
         query = ''
     return query
+
+DELETE = '''
+DELETE FROM orders_place
+'''
+
+def delete(id, args):
+    if int(args['order_id']) > id: return ''
+    if args['order_id'] != '': 
+        query = DELETE
+        query += updateMap['order_id'].format(args['order_id'])
+    else: query = ''
+    return query
+
+
+ADD = '''
+INSERT INTO orders_place VALUES(
+'''
+
+def add(id, args):
+    if (args['customer_id'] == ''):
+        return ''
+    query = ADD
+    query += str(id) + ','
+    query += '\'' + args['customer_id'] + '\'' + ','
+    if args['delivery_man_id'] != '': query += '\'' + args['delivery_man_id'] + '\'' + ','
+    else: query += 'DEFAULT,'
+    if args['total_price'] != '': query += '\'' + args['total_price'] + '\'' + ','
+    else: query += 'DEFAULT,'
+    if args['order_status'] != '': query += '\'' + args['order_status'] + '\'' + ','
+    else: query += 'DEFAULT,'
+    if args['placed_date'] != '': query += '\'' + args['placed_date'] + '\'' + ')'
+    else: query += 'DEFAULT' + ')'
+    return query
