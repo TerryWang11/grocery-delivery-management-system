@@ -114,11 +114,11 @@ def add(id, args):
     query = ADD
     query += str(id) + ','
     query += '\'' + args['customer_id'] + '\'' + ','
-    if args['delivery_man_id'] != '': query += '\'' + args['delivery_man_id'] + '\'' + ','
-    else: query += 'DEFAULT,'
     if args['total_price'] != '': query += '\'' + args['total_price'] + '\'' + ','
     else: query += 'DEFAULT,'
     if args['order_status'] != '': query += '\'' + args['order_status'] + '\'' + ','
+    else: query += 'DEFAULT,'
+    if args['delivery_man_id'] != '': query += '\'' + args['delivery_man_id'] + '\'' + ','
     else: query += 'DEFAULT,'
     if args['placed_date'] != '': query += '\'' + args['placed_date'] + '\'' + ')'
     else: query += 'DEFAULT' + ')'
