@@ -402,6 +402,7 @@ def search_orders():
   else: 
     return render_template("orders.html", **dict(data2_2 = result))
 
+
 @app.route("/update_orders/",methods=['POST'])
 def update_orders():
   q1 = query.orders.MAX_ORDER_ID
@@ -410,10 +411,12 @@ def update_orders():
   for c in cursor:
       o_id = c
   q = query.orders.update(o_id[0],request.form)
-  if q == '':
+  if q[0] == '' and q[1] == '':
     result = 'Update failed. Please enter the correct order_id and fill in at least one other field.'
-  else: 
-    g.conn.execute(q)
+  elif q[0] != '':
+    g.conn.execute(q[0])
+    if q[1] != '':
+      g.conn.execute(q[1])
     result = 'Update successfully!'
   return render_template("orders.html", data3 = result)
 
@@ -440,11 +443,19 @@ def add_orders():
   for c in cursor:
       d_id = c
   q = query.orders.add(d_id[0]+1, request.form)
-  if q == '':
-    result = 'Create failed. Please fill in all fields marked with *.'
-  else: 
-    g.conn.execute(q)
-    result = "Create successfully!"
+  if q[0] == '' and q[1] == '' and q[2] == '':
+    result = 'Update failed. Please enter the correct order_id and fill in at least one other field.'
+  elif q[0] != '':
+    g.conn.execute(q[0])
+    # q[1]'s table has foreign keys to q[2] and q[3]'s tables
+    # so excute q[2] and q[3] first
+    if q[2] != '':
+      g.conn.execute(q[2])
+    if q[3] != '':
+      g.conn.execute(q[3])
+    if q[1] != '':
+      g.conn.execute(q[1])
+    result = 'Update successfully!'
   return render_template("orders.html", data5 = result)
 
 # # Example of adding new data to the database
