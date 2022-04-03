@@ -33,7 +33,7 @@ queryMap = {
 }
 
 def if_id_is_a_num(args):
-    if args['product_id'].isdecimal(): return 1
+    if args['product_id'].isdecimal() or args['product_id'] == '': return 1
     else: return 0
 
 def fetch(args):
