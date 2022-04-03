@@ -61,7 +61,12 @@ queryMap = {
     'level': " AND m.level = '{}' "
 }
 
+def if_id_is_a_num(args):
+    if(type(args['customer_id']) == str): return 0
+    else: return 1
+
 def fetch(args):
+    if if_id_is_a_num(args) == 0: return ''
     if (args['customer_id'] == '') & (args['c_first_name'] == '') & (args['c_last_name'] == '') \
         & (args['birth_date'] == '') & (args['phone'] == '') & (args['address'] == '') \
         & (args['city'] == '') & (args['state'] == '') & (args['zip_code'] == '')\
@@ -112,6 +117,7 @@ updateMap = {
 }
 
 def update(id, args):
+    if if_id_is_a_num(args) == 0: return ['','']
     if args['customer_id'] == '' or int(args['customer_id']) > id: return ['','']
     query1 = UPDATE_C
     if args['c_first_name'] != '': query1 += updateMap['c_first_name'].format(args['c_first_name'])
@@ -147,6 +153,7 @@ DELETE FROM customers
 '''
 
 def delete(id, args):
+    if if_id_is_a_num(args) == 0: return ''
     if int(args['customer_id']) > id: return ''
     if args['customer_id'] != '': 
         query = DELETE

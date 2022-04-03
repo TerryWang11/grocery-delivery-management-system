@@ -155,8 +155,11 @@ def view_customers():
 @app.route("/search_customers/",methods=['POST'])
 def search_customers():
   q = query.customers.fetch(request.form)
-  cursor = g.conn.execute(q)
   result = []
+  if(q == ''): 
+    result = 'Please enter the correct customer_id.'
+    return render_template("customers.html", **dict(data2_1 = result))
+  cursor = g.conn.execute(q)
   for c in cursor:
     result.append(c)
   if(result == []): 
@@ -230,8 +233,11 @@ def view_deliverymen():
 @app.route("/search_deliverymen/",methods=['POST'])
 def search_deliverymen():
   q = query.deliverymen.fetch(request.form)
-  cursor = g.conn.execute(q)
   result = []
+  if(q == ''): 
+    result = 'Please enter the correct deliverymen_id.'
+    return render_template("deliverymen.html", **dict(data2_1 = result))
+  cursor = g.conn.execute(q)
   for c in cursor:
     result.append(c)
   print(result)
@@ -302,8 +308,11 @@ def view_inventory():
 @app.route("/search_products/",methods=['POST'])
 def search_products():
   q = query.products.fetch(request.form)
-  cursor = g.conn.execute(q)
   result = []
+  if(q == ''): 
+    result = 'Please enter the correct product_id.'
+    return render_template("products.html", **dict(data2_1 = result))
+  cursor = g.conn.execute(q)
   for c in cursor:
     result.append(c)
   print(result)

@@ -32,8 +32,12 @@ queryMap = {
     'rating': " AND rating = '{}'"
 }
 
+def if_id_is_a_num(args):
+    if(type(args['delivery_man_id']) == str): return 0
+    else: return 1
+
 def fetch(args):
-    print(args)
+    if if_id_is_a_num(args) == 0: return ''
     if (args['delivery_man_id'] == '') & (args['d_first_name'] == '') & (args['d_last_name'] == '') \
         & (args['phone'] == '') & (args['rating'] == ''):
         query = QUERY_E
@@ -60,6 +64,7 @@ updateMap = {
 }
 
 def update(id, args):
+    if if_id_is_a_num(args) == 0: return ''
     if args['delivery_man_id'] == '' or int(args['delivery_man_id']) > id: return ''
     query = UPDATE
     if args['d_first_name'] != '': query += updateMap['d_first_name'].format(args['d_first_name'])
@@ -79,6 +84,7 @@ DELETE FROM delivery_men
 '''
 
 def delete(id, args):
+    if if_id_is_a_num(args) == 0: return ''
     if int(args['delivery_man_id']) > id: return ''
     if args['delivery_man_id'] != '': 
         query = DELETE

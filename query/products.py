@@ -32,8 +32,12 @@ queryMap = {
     'quantity_in_stock': " AND quantity_in_stock = '{}'"
 }
 
+def if_id_is_a_num(args):
+    if(type(args['product_id']) == str): return 0
+    else: return 1
+
 def fetch(args):
-    print(args)
+    if if_id_is_a_num(args) == 0: return ''
     if (args['product_id'] == '') & (args['product_name'] == '') & (args['product_type'] == '') \
         & (args['unit_price'] == '') & (args['quantity_in_stock'] == ''):
         query = QUERY_E
@@ -60,6 +64,7 @@ updateMap = {
 }
 
 def update(id, args):
+    if if_id_is_a_num(args) == 0: return ''
     if args['product_id'] == '' or int(args['product_id']) > id: return ''
     query = UPDATE
     if args['product_name'] != '': query += updateMap['product_name'].format(args['product_name'])
@@ -77,6 +82,7 @@ DELETE = '''
 DELETE FROM inventory
 '''
 def delete(id, args):
+    if if_id_is_a_num(args) == 0: return ''
     if int(args['product_id']) > id: return ''
     if args['product_id'] != '': 
         query = DELETE
