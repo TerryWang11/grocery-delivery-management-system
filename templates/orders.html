@@ -41,7 +41,7 @@
                 <div class="common_content">
                     <h2>Orders</h2>
                     <form accept-charset="UTF-8" action="/view_orders" autocomplete="off" method="POST"
-                        target="_blank">
+                        target="_self">
                         <fieldset>
                             <legend>View All Orders Info:</legend> 
                                 <input type="submit" value="View" onclick="loading();">
@@ -73,7 +73,7 @@
                     </table>
                     <br />
                     <form accept-charset="UTF-8" action="/search_orders" autocomplete="off" method="POST"
-                        target="_blank">
+                        target="_self">
                         <fieldset>
                             <legend>Search Order:</legend>
                                 <label for="order_id">Order ID : </label><input name="order_id" type="text"value="" /> <br />
@@ -118,7 +118,7 @@
                     </table>
                     <br />
                     <form accept-charset="UTF-8" action="/update_orders" autocomplete="off" method="POST"
-                        target="_blank">
+                        target="_self">
                         <fieldset>
                             <legend>Update Order:</legend> 
                             <label for="order_id">Order ID(*) : </label><input name="order_id" type="text"value="" /> <br />
@@ -141,7 +141,7 @@
                     </tbody>
                     <br />
                     <form accept-charset="UTF-8" action="/delete_orders" autocomplete="off" method="POST"
-                        target="_blank">
+                        target="_self">
                         <fieldset>
                             <legend>Delete Order:</legend> 
                             <label for="order_id">Order ID : </label><input name="order_id" type="text"value="" /> <br />
@@ -153,7 +153,7 @@
                     </tbody>
                     <br />
                     <form accept-charset="UTF-8" action="/add_orders" autocomplete="off" method="POST"
-                        target="_blank">
+                        target="_self">
                         <fieldset>
                             <legend>Create Order:</legend> 
                             <!-- <label for="order_id">Order ID(*) : </label><input name="order_id" type="text"value="" /> <br /> -->
