@@ -150,6 +150,7 @@ def view_customers():
   result = []
   for c in cursor:
     result.append(c)
+  cursor.close()
   return render_template("customers.html", **dict(data1 = result))
 
 @app.route("/search_customers/",methods=['POST'])
@@ -446,12 +447,12 @@ def add_orders():
     result = "Create successfully!"
   return render_template("orders.html", data5 = result)
 
-# Example of adding new data to the database
-@app.route('/add', methods=['POST'])
-def add():
-  name = request.form['name']
-  g.conn.execute('INSERT INTO test VALUES (NULL, ?)', name)
-  return redirect('/')
+# # Example of adding new data to the database
+# @app.route('/add', methods=['POST'])
+# def add():
+#   name = request.form['name']
+#   g.conn.execute('INSERT INTO test VALUES (NULL, ?)', name)
+#   return redirect('/')
 
 @app.route('/login', methods = ['GET','POST'])
 def login():

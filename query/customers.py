@@ -24,28 +24,6 @@ ON c.customer_id = m.customer_id
 WHERE 0>1
 '''
 
-# QUERY = '''
-# SELECT 
-#     c.customer_id, 
-#     c.c_first_name,
-#     c.c_last_name,
-#     c.birth_date,
-#     c.phone,
-#     c.address,
-#     c.city,
-#     c.state,
-#     c.zip_code, 
-#     c.account_balance,
-#     m.start_date,
-#     m.end_date,
-#     m.points,
-#     m.level
-# FROM customers c
-# LEFT OUTER JOIN member_customers m 
-# ON c.customer_id = m.customer_id
-# WHERE 1>0
-# '''
-
 QUERY = '''
 SELECT 
     c.customer_id, 
