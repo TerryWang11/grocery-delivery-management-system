@@ -33,8 +33,8 @@ queryMap = {
 }
 
 def if_id_is_a_num(args):
-    if(type(args['delivery_man_id']) == str): return 0
-    else: return 1
+    if args['delivery_man_id'].isdecimal(): return 1
+    else: return 0
 
 def fetch(args):
     if if_id_is_a_num(args) == 0: return ''

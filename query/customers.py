@@ -24,6 +24,28 @@ ON c.customer_id = m.customer_id
 WHERE 0>1
 '''
 
+# QUERY = '''
+# SELECT 
+#     c.customer_id, 
+#     c.c_first_name,
+#     c.c_last_name,
+#     c.birth_date,
+#     c.phone,
+#     c.address,
+#     c.city,
+#     c.state,
+#     c.zip_code, 
+#     c.account_balance,
+#     m.start_date,
+#     m.end_date,
+#     m.points,
+#     m.level
+# FROM customers c
+# LEFT OUTER JOIN member_customers m 
+# ON c.customer_id = m.customer_id
+# WHERE 1>0
+# '''
+
 QUERY = '''
 SELECT 
     c.customer_id, 
@@ -39,11 +61,17 @@ SELECT
     m.start_date,
     m.end_date,
     m.points,
-    m.level
-FROM customers c 
+    m.level,
+    o.order_id,
+    o.placed_date,
+    o.order_status,
+    o.total_price
+FROM customers c
 LEFT OUTER JOIN member_customers m 
 ON c.customer_id = m.customer_id
-WHERE 1>0
+LEFT OUTER JOIN orders_place o
+ON c.customer_id = o.customer_id
+WHERE 1>0 
 '''
 
 queryMap = {
@@ -62,8 +90,8 @@ queryMap = {
 }
 
 def if_id_is_a_num(args):
-    if(type(args['customer_id']) == str): return 0
-    else: return 1
+    if args['customer_id'].isdecimal(): return 1
+    else: return 0
 
 def fetch(args):
     if if_id_is_a_num(args) == 0: return ''

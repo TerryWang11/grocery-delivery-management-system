@@ -82,7 +82,7 @@
                     <form accept-charset="UTF-8" action="/search_customers" autocomplete="off" method="POST"
                         target="_blank">
                         <fieldset>
-                            <legend>Search Customer:</legend> 
+                            <legend>Search Customer & Order Histroy:</legend> 
                                 <label for="customer_id">Customer ID : </label><input name="customer_id" type="text"value="" /> <br />
                                 <label for="c_first_name">First Name : </label><input name="c_first_name" type="text"value="" /> <br />
                                 <label for="c_last_name">Last Name : </label><input name="c_last_name" type="text"value="" /> <br />
@@ -120,6 +120,10 @@
                                 <th>End Date</th>
                                 <th>Points</th>
                                 <th>Level</th>
+                                <th>Order ID</th>
+                                <th>Placed Date</th>
+                                <th>Order Status</th>
+                                <th>Total Price</th>
                             </tr>
                         </thead>                            
                                 {% for row in data2_2 %}
