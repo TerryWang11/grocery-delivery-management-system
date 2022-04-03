@@ -388,8 +388,11 @@ def view_orders():
 def search_orders():
   q = query.orders.fetch(request.form)
   print(q)
-  cursor = g.conn.execute(q)
   result = []
+  if(q == ''): 
+    result = 'Please enter the correct order_id.'
+    return render_template("orders.html", **dict(data2_1 = result))
+  cursor = g.conn.execute(q)
   for c in cursor:
     result.append(c)
   if(result == []): 

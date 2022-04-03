@@ -26,12 +26,16 @@ SELECT
     o.order_status, 
     o.placed_date, 
     od.delivered_date,
-    coi.product_id
+    coi.product_id,
+    coi.quantity,
+    i.product_name
 FROM 
 (orders_place o LEFT OUTER JOIN orders_deliver od
 ON o.order_id = od.order_id)
 LEFT OUTER JOIN contain_order_items coi
 ON o.order_id = coi.order_id
+LEFT OUTER JOIN inventory i
+ON coi.product_id = i.product_id
 WHERE 1>0
 '''
 
@@ -45,7 +49,12 @@ queryMap = {
     'delivered_date': "AND od.delivered_date = '{}' "
 }
 
+def if_id_is_a_num(args):
+    if args['order_id'].isdecimal() or args['order_id'] == '': return 1
+    else: return 0
+
 def fetch(args):
+    if if_id_is_a_num(args) == 0: return ''
     if (args['order_id'] == '') & (args['customer_id'] == '') & (args['delivery_man_id'] == '') \
         & (args['order_status'] == '') & (args['placed_date'] == '') \
         & (args['delivered_date'] == ''):
@@ -75,6 +84,7 @@ updateMap = {
 }
 
 def update(id, args):
+    if if_id_is_a_num(args) == 0: return ''
     if int(args['order_id']) > id: return ''
     query = UPDATE_O
     if args['customer_id'] != '': query += updateMap['customer_id'].format(args['customer_id'])
@@ -96,6 +106,7 @@ DELETE FROM orders_place
 '''
 
 def delete(id, args):
+    if if_id_is_a_num(args) == 0: return ''
     if int(args['order_id']) > id: return ''
     if args['order_id'] != '': 
         query = DELETE
