@@ -428,11 +428,19 @@ def delete_orders():
   for c in cursor:
       d_id = c
   q = query.orders.delete(d_id[0], request.form)
-  if q == '':
+  if q[0] == '' and q[1] == '' and q[2] == '' and q[3] == '':
     result = 'Delete failed. Please enter the correct order_id.'
-  else: 
-    g.conn.execute(q)
-    result = "Delete successfully!"
+  elif q[0] != '':
+    g.conn.execute(q[0])
+    # q[1]'s table has foreign keys to q[2] and q[3]'s tables
+    # so excute q[2] and q[3] first
+    if q[2] != '':
+      g.conn.execute(q[2])
+    if q[3] != '':
+      g.conn.execute(q[3])
+    if q[1] != '':
+      g.conn.execute(q[1])
+    result = 'Delete successfully!'
   return render_template("orders.html", data4 = result)
 
 @app.route("/add_orders/",methods=['POST'])
@@ -443,7 +451,7 @@ def add_orders():
   for c in cursor:
       d_id = c
   q = query.orders.add(d_id[0]+1, request.form)
-  if q[0] == '' and q[1] == '' and q[2] == '':
+  if q[0] == '' and q[1] == '' and q[2] == '' and q[3] == '':
     result = 'Update failed. Please enter the correct order_id and fill in at least one other field.'
   elif q[0] != '':
     g.conn.execute(q[0])
@@ -455,7 +463,7 @@ def add_orders():
       g.conn.execute(q[3])
     if q[1] != '':
       g.conn.execute(q[1])
-    result = 'Update successfully!'
+    result = 'Create successfully!'
   return render_template("orders.html", data5 = result)
 
 # # Example of adding new data to the database

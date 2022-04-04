@@ -124,16 +124,33 @@ def update(id, args):
     query = [query1, query2]
     return query
 
-DELETE = '''
+DELETE_O = '''
 DELETE FROM orders_place
+'''
+DELETE_COI = '''
+DELETE FROM contain_order_items
+'''
+DELETE_OIF = '''
+DELETE FROM order_items_from
+'''
+DELETE_OD = '''
+DELETE FROM orders_deliver
 '''
 
 def delete(id, args):
     if if_id_is_a_num(args) == 0: return ''
     if int(args['order_id']) > id: return ''
     if args['order_id'] != '': 
-        query = DELETE
-        query += updateMap['order_id'].format(args['order_id'])
+        query1 = DELETE_O
+        query1 += updateMap['order_id'].format(args['order_id'])
+        query2 = DELETE_COI
+        query2 += updateMap['order_id'].format(args['order_id'])
+        query3 = DELETE_OIF
+        query3 += updateMap['order_id'].format(args['order_id'])
+        query4 = DELETE_OD
+        query4 += updateMap['order_id'].format(args['order_id'])
+
+        query = [query1, query2, query3, query4]
     else: query = ''
     return query
 
