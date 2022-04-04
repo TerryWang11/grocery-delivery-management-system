@@ -83,7 +83,7 @@ DELETE FROM inventory
 '''
 def delete(id, args):
     if if_id_is_a_num(args) == 0: return ''
-    if int(args['product_id']) > id: return ''
+    if args['product_id'] == '' or int(args['product_id']) > id: return ''
     if args['product_id'] != '': 
         query = DELETE
         query += updateMap['product_id'].format(args['product_id'])

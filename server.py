@@ -171,6 +171,7 @@ def search_customers():
 
 @app.route("/update_customers/",methods=['POST'])
 def update_customers():
+  result = []
   q1 = query.customers.MAX_CUS_ID
   cursor = g.conn.execute(q1)
   c_id = 0
@@ -179,11 +180,21 @@ def update_customers():
   q = query.customers.update(c_id[0],request.form)
   if q[0] == '' and q[1] == '':
     result = 'Update failed. Please enter the correct customer_id and fill in at least one other field.'
+    return render_template("customers.html", data3 = result)
   elif q[0] != '':
     g.conn.execute(q[0])
     if q[1] != '':
       g.conn.execute(q[1])
     result = 'Update successfully!'
+  elif q[0] == '' and q[1] != '':
+    g.conn.execute(q[1])
+    result = 'Update successfully!'
+  if 'member_customers' in request.form:
+    cursor_ = g.conn.execute(query.customers.if_id_is_a_mem(request.form))
+    if cursor_ == None:
+      print("SADASDASDASDAS")
+      q_m = query.customers.update_M(request.form)
+      g.conn.execute(q_m)
   return render_template("customers.html", data3 = result)
 
 @app.route("/delete_customers/",methods=['POST'])

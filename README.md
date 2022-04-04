@@ -1,12 +1,11 @@
 # COMS4111 Project 1
 ## Author:  Zhuoyu Feng(zf2272), Yukun Wang(yw3536)
 ## Database: yw3536
-## URL: .../////
+## URL: http://34.73.53.129:8111/
 ### Descripetions
 We built a web application for the grocery delivery management, which is designed to help managers better manage customers information, delivery men information, orders information and products information. 
 
 As we proposed in the part1, we divided this system into four functional sections, namely customers management, deliverymen management, orders management and products management. We have basically completed all the features in the proposal. In addition, we have also completed the function of viewing customer history orders and viewing the item information contained in the order. 
-
 
 We did not choose to implement the manager registration function because.../////
 
