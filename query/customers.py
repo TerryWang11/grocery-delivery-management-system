@@ -2,6 +2,11 @@ MAX_CUS_ID = """
     SELECT MAX(customer_id) FROM customers
 """
 
+QUERY_M = '''
+    SELECT customer_id FROM member_customers
+    WHERE customer_id = 
+'''
+
 QUERY_E = '''
 SELECT 
     c.customer_id, 
@@ -71,6 +76,11 @@ def if_id_is_a_num(args):
     if args['customer_id'].isdecimal() or args['customer_id'] == '': return 1
     else: return 0
 
+def if_id_is_a_mem(args):
+    query = QUERY_M
+    query += args['customer_id']
+    return query
+
 def fetch(args):
     if if_id_is_a_num(args) == 0: return ''
     if (args['customer_id'] == '') & (args['c_first_name'] == '') & (args['c_last_name'] == '') \
@@ -100,7 +110,7 @@ UPDATE_C = '''
 UPDATE customers SET
 '''
 
-UPDATE_M = '''
+UPDATE_ME = '''
 UPDATE member_customers SET
 '''
 
@@ -140,11 +150,11 @@ def update(id, args):
     if (args['c_first_name'] == '') & (args['c_last_name'] == '') \
         & (args['birth_date'] == '') & (args['phone'] == '') & (args['address'] == '') \
         & (args['city'] == '') & (args['state'] == '') & (args['zip_code'] == '')\
-        & (args['account_balance'] == '') & ('member_customers' not in args):
+        & (args['account_balance'] == ''):
         query1 = ''
     query2 = ''
     if 'member_customers' in args:
-        query2 = UPDATE_M 
+        query2 = UPDATE_ME
         if args['start_date'] != '': query2 += updateMap['start_date'].format(args['start_date'])
         if args['end_date'] != '': query2 += updateMap['end_date'].format(args['end_date'])
         if args['points'] != '': query2 += updateMap['points'].format(args['points'])
@@ -154,13 +164,25 @@ def update(id, args):
     query = [query1,query2]
     return query
 
+def update_M(args):
+    query2 = ADD_M
+    query2 += args['customer_id'] + ','
+    if args['start_date'] != '': query2 += '\'' + args['start_date'] + '\'' + ','
+    else: query2 += 'DEFAULT,'
+    if args['end_date'] != '': query2 += '\'' + args['end_date'] + '\'' + ','
+    else: query2 += 'DEFAULT,'
+    if args['points'] != '': query2 += args['points'] + ','
+    else: query2 += 'DEFAULT,'
+    query2 += '\''+args['level'] + '\'' + ')'
+    return query2
+
 DELETE = '''
 DELETE FROM customers
 '''
 
 def delete(id, args):
     if if_id_is_a_num(args) == 0: return ''
-    if int(args['customer_id']) > id: return ''
+    if args['customer_id'] == '' or int(args['customer_id']) > id: return ''
     if args['customer_id'] != '': 
         query = DELETE
         query += updateMap['customer_id'].format(args['customer_id'])
@@ -210,35 +232,3 @@ def add(id, args):
         query2 += '\''+args['level'] + '\'' + ')'
     query = [query1,query2]
     return query
-
-# ADD_C = '''
-#     INSERT INTO customers 
-#     VALUES({customer_id}, '{c_first_name}', '{c_last_name}','{birth_date}',
-#      '{phone}', '{address}', '{city}', '{state}', '{zip_code}', '{account_balance}')
-# '''
-
-# ADD_M = '''
-#     INSERT INTO member_customers (customer_id, start_date, end_date, points, level)
-#     VALUES({customer_id}, '{start_date}', '{end_date}', '{points}', '{level}')
-# '''
-
-# def add(id, args):
-#     print("sdssdsfdsfsdfdsffdsfsfsdf")
-#     print(args)
-#     if (args['phone'] == '') or (args['account_balance'] == ''):
-#         return ['','']
-#     query1 = ADD_C
-#     query1 = query1.format(customer_id = str(int(id) + 1), c_first_name = args['c_first_name'], 
-#     c_last_name = args['c_last_name'],birth_date = args['birth_date'],phone = args['phone'],
-#     address = args['address'],city = args['city'],state = args['state'],
-#     zip_code = args['zip_code'],account_balance = args['account_balance'])
-#     query2 = ''
-#     if 'member_customers' in args:
-#         query2 = ADD_M
-#         query2 =query2.format(customer_id = str(int(id) + 1), start_date = args['start_date'], 
-#         end_date = args['end_date'], points = args['points'],level = args['level'])
-#         if args['start_date'] == '' : query2 = query2.format(start_date = '0000-00-00')
-#         if args['end_date'] == '' : query2 = query2.format(end_date = '0000-00-00')
-#     print(query1+">>>>>>>>>>>>>>>>>>>"+query2)
-#     query = [query1,query2]
-#     return query

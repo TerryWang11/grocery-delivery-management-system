@@ -85,7 +85,7 @@ DELETE FROM delivery_men
 
 def delete(id, args):
     if if_id_is_a_num(args) == 0: return ''
-    if int(args['delivery_man_id']) > id: return ''
+    if args['delivery_man_id'] == '' or int(args['delivery_man_id']) > id: return ''
     if args['delivery_man_id'] != '': 
         query = DELETE
         query += updateMap['delivery_man_id'].format(args['delivery_man_id'])

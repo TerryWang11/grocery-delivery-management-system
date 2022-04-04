@@ -130,7 +130,7 @@ DELETE FROM orders_place
 
 def delete(id, args):
     if if_id_is_a_num(args) == 0: return ''
-    if int(args['order_id']) > id: return ''
+    if args['order_id'] == '' or int(args['order_id']) > id: return ''
     if args['order_id'] != '': 
         query = DELETE
         query += updateMap['order_id'].format(args['order_id'])
