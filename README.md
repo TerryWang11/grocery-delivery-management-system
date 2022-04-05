@@ -42,4 +42,4 @@ This page enables the user to manage all the data regarding the orders, which co
 ​	The design of this page is interesting with following reasons:
 
 1. Since orders' information are covered in four tables, there are many cross-table operations.
-2. We considered several boundary conditions, for example, the input IDs should be non empty since they are primary keys, and they should be integers.
+2. We considered several boundary conditions, for example, the input IDs should be non empty since they are primary keys, and they should be integers. We add some friendly instructions with those invalid input, to help the user input the correct information, e.g., 'Add failed. Please enter the necessary customer_id and product_id'.
