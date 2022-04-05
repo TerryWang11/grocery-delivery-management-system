@@ -108,7 +108,6 @@ def index():
 
   # DEBUG: this is debugging code to see what request looks like
   print (request.args)
-  # return render_template("login.html")
   return render_template("login.html")
 
 
