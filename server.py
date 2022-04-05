@@ -444,7 +444,9 @@ def delete_orders():
   for c in cursor:
       d_id = c
   q = query.orders.delete(d_id[0], request.form)
-  if q[0] == '' and q[1] == '' and q[2] == '' and q[3] == '':
+  # if q[0] == '' and q[1] == '' and q[2] == '' and q[3] == '':
+  #   result = 'Delete failed. Please enter the correct order_id.'
+  if q == '':
     result = 'Delete failed. Please enter the correct order_id.'
   elif q[0] != '':
     g.conn.execute(q[0])
