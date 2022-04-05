@@ -467,8 +467,10 @@ def add_orders():
   for c in cursor:
       d_id = c
   q = query.orders.add(d_id[0]+1, request.form)
-  if q[0] == '' and q[1] == '' and q[2] == '' and q[3] == '':
-    result = 'Update failed. Please enter the correct order_id and fill in at least one other field.'
+  if q == '':
+    result = 'Add failed. Please enter the necessary customer_id and product_id.'
+  # if q[0] == '' and q[1] == '' and q[2] == '' and q[3] == '':
+  #   result = 'Update failed. Please enter the correct order_id and fill in at least one other field.'
   elif q[0] != '':
     g.conn.execute(q[0])
     # q[1]'s table has foreign keys to q[2] and q[3]'s tables
