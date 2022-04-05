@@ -78,9 +78,14 @@ def fetch(args):
 UPDATE_O = '''
 UPDATE orders_place SET
 '''
-
 UPDATE_COI = '''
 UPDATE contain_order_items SET
+'''
+UPDATE_OIF = '''
+UPDATE order_items_from SET
+'''
+UPDATE_OD = '''
+UPDATE orders_deliver SET
 '''
 
 updateMap = {
@@ -103,26 +108,47 @@ def update(id, args):
     query1 = UPDATE_O
     if args['customer_id'] != '': query1 += updateMap['customer_id'].format(args['customer_id'])
     if args['delivery_man_id'] != '': query1 += updateMap['delivery_man_id'].format(args['delivery_man_id'])
-    if args['total_price'] != '': query1 += updateMap['total_price'].format(args['total_price'])
+    # if args['total_price'] != '': query1 += updateMap['total_price'].format(args['total_price'])
     if args['order_status'] != '': query1 += updateMap['order_status'].format(args['order_status'])
     if args['placed_date'] != '': query1 += updateMap['placed_date'].format(args['placed_date'])
-    if args['delivered_date'] != '': query1 += updateMap['delivered_date'].format(args['delivered_date'])
     query1 = query1[0:-1]
     query1 += updateMap['order_id'].format(args['order_id'])
     if (args['customer_id'] == '') & (args['delivery_man_id'] == '') \
-        & (args['total_price'] == '') & (args['order_status'] == '') \
+        & (args['order_status'] == '') \
         & (args['placed_date'] == '') & (args['delivered_date'] == ''):
         query1 = ''
     # update contain_order_items
-    query2 = UPDATE_COI
-    if args['product_id'] != '': query2 += updateMap['product_id'].format(args['product_id'])
-    if args['quantity'] != '': query2 += updateMap['quantity'].format(args['quantity'])
-    if (args['product_id'] == '') & (args['quantity'] == ''):
-        query2 = ''
-    query2 = query2[0:-1]
-    query2 += updateMap['order_id'].format(args['order_id'])
-    query = [query1, query2]
+    # query2 = UPDATE_COI
+    # if args['product_id'] != '': query2 += updateMap['product_id'].format(args['product_id'])
+    # if args['quantity'] != '': query2 += updateMap['quantity'].format(args['quantity'])
+    # if (args['product_id'] == '') & (args['quantity'] == ''):
+    #     query2 = ''
+    # query2 = query2[0:-1]
+    # query2 += updateMap['order_id'].format(args['order_id'])
+    # update order_items_from
+    # query3 = UPDATE_OIF
+    # if args['product_id'] != '': query3 += updateMap['product_id'].format(args['product_id'])
+    # else: query3 = ''
+    # query3 = query3[0:-1]
+    # query3 += updateMap['order_id'].format(args['order_id'])
+    # update orders_deliver
+    query4 = UPDATE_OD
+    if args['delivery_man_id'] != '': query4 += updateMap['delivery_man_id'].format(args['delivery_man_id'])
+    if args['customer_id'] != '': query4 += updateMap['customer_id'].format(args['customer_id'])
+    # if args['total_price'] != '': query4 += updateMap['total_price'].format(args['total_price'])
+    if args['order_status'] != '': query4 += updateMap['order_status'].format(args['order_status'])
+    if args['delivered_date'] != '': query4 += updateMap['delivered_date'].format(args['delivered_date'])
+    query4 = query4[0:-1]
+    query4 += updateMap['order_id'].format(args['order_id'])
+    if (args['customer_id'] == '') & (args['delivery_man_id'] == '') \
+        & (args['order_status'] == '') & (args['delivered_date'] == ''):
+        query4 = ''
+
+    query = [query1, query4]
+    print("query1:", query1)
+    print("query4:", query4)
     return query
+
 
 DELETE_O = '''
 DELETE FROM orders_place
@@ -206,10 +232,6 @@ def add(id, args):
     else: query4 += 'DEFAULT,'
     if args['delivered_date'] != '': query4 += '\'' + args['delivered_date'] + '\'' + ')'
     else: query4 += 'DEFAULT' + ')'
-    print("query1:\n", query1)
-    print("query2:\n", query2)
-    print("query3:\n", query3)
-    print("query4:\n", query4)
     query = [query1, query2, query3, query4]
 
     return query

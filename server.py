@@ -109,8 +109,7 @@ def index():
   # DEBUG: this is debugging code to see what request looks like
   print (request.args)
   # return render_template("login.html")
-  return render_template("home.html")
-
+  return render_template("login.html")
 
 
 # Link to feature page
@@ -425,7 +424,13 @@ def update_orders():
   if q[0] == '' and q[1] == '':
     result = 'Update failed. Please enter the correct order_id and fill in at least one other field.'
   elif q[0] != '':
+    # q[1]'s table has foreign keys to q[2] and q[3]'s tables
+    # so excute q[2] and q[3] first
     g.conn.execute(q[0])
+    # if q[2] != '':
+    #   g.conn.execute(q[2])
+    # if q[3] != '':
+    #   g.conn.execute(q[3])
     if q[1] != '':
       g.conn.execute(q[1])
     result = 'Update successfully!'
