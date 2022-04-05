@@ -11,8 +11,30 @@ We did not choose to implement the manager registration function because we thin
 
 ### Two interesting webpages
 #### 1. Customers management page:
-This page can be used to view all customer information, retrieve certain customers and their order history by specific criteria, delete and update customer information. For example, when you fill in some conditions and click the search button, the database will join the three tables including 
-[customers], [member_customers] and [orders_place] and filter out the information that meets the conditions. This feature is very useful because it can help managers quickly find a customer's purchase history for checking or understanding the customer's shopping habits. 
+This page enables the user to manage all the data regarding the customers, which contains the following five functions:
+
+1. View All Customers Info
+
+   Click the 'view' button, it will fetch couple of important columns in terms of customer by calling 'SELECT...FROM...' SQL syntax and display as a table.
+
+2. Search Customer & Order Histroy
+
+   This function enables the manager to search a certain customers' information and their order history. It is done by using the *SELECT...FROM...LEFT OUTER JOIN...ON...WHERE...* SQL syntax, columns with nonempty inputs will be added to the *WHERE...* conditions.
+
+3. Update Customer
+
+   This function enables the manager to modify and update a specific customer's information, achieved by calling *UPDATE ... SET* plus the updated data of some attributes, read from the input boxes.
+
+4. Delete Customer
+
+   The manager is able to delete a specific customer by inputting *customer_id*. Then *DELETE FROM ...* will be executed in all the tables containing *customer_id*.
+
+5. Create Customer
+
+   When a order is placed by a new customer, it needs to be added to our database, the manager can do this using this function. It is done by using the *INSERT INTO ... VALUES( ... )* SQL syntax.
+
+
+I think "Search Customer & Order Histroy" function is very useful, because it can help managers quickly find a customer's purchase history for checking or understanding the customer's shopping habits. 
 
 #### 2. Orders manegement page
 This page enables the user to manage all the data regarding the orders, which contains the following five functions:
