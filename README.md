@@ -10,7 +10,7 @@ As we proposed in the part1, we divided this system into four functional section
 We did not choose to implement the manager registration function because we think this system only needs a few stable managers, as we already stored their information including the matched account number and password in our database. Hence, we don't really need to design this function to add more  account number - password pairs into our database, since this is not the core part of the whole system.
 
 ### Two interesting webpages
-#### 1. Customers management page:
+#### 1) Customers management page:
 This page enables the user to manage all the data regarding the customers, which contains the following five functions:
 
 1. View All Customers Info
@@ -36,7 +36,7 @@ This page enables the user to manage all the data regarding the customers, which
 
 I think "Search Customer & Order Histroy" function is very useful, because it can help managers quickly find a customer's purchase history for checking or understanding the customer's shopping habits. 
 
-#### 2. Orders manegement page
+#### 2) Orders manegement page
 This page enables the user to manage all the data regarding the orders, which contains the following five functions:
 
 1. View All Orders Info
