@@ -27,9 +27,7 @@ This page enables the user to manage all the data regarding the orders, which co
 
 3. Update Order
 
-   This function enables the manager to modify and update a specific order's information, achieved by calling *UPDATE ... SET*
-
-   plus the updated data of some attributes, read from the input boxes.
+   This function enables the manager to modify and update a specific order's information, achieved by calling *UPDATE ... SET* plus the updated data of some attributes, read from the input boxes.
 
 4. Delete Order
 
