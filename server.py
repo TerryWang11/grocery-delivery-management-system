@@ -35,7 +35,6 @@ import query.customers, query.orders, query.deliverymen, query.products
 #     DATABASEURI = "postgresql://biliris:foobar@104.196.152.219/proj1part2"
 #
 # DATABASEURI = "postgresql://user:password@104.196.152.219/proj1part2"
-DATABASEURI = "postgresql://yw3536:22723536@35.211.155.104/proj1part2"
 
 
 #
